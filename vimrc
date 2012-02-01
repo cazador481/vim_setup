@@ -1,0 +1,103 @@
+filetype off "pathogen needs to run before plugin indent on
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+filetype plugin indent on
+
+"let Vundle manage Vundle
+"required !
+Bundle 'gmarik/vundle'
+
+"My bundles here {{{
+Bundle 'http://github.com/tpope/vim-fugitive'
+Bundle 'http://github.com/vim-scripts/perl-support.vim'
+Bundle 'http://github.com/vim-scripts/a.vim.git'
+Bundle 'http://github.com/ervandew/supertab'
+Bundle 'http://github.com/gerw/EnhCommentify.vim'
+Bundle 'http://github.com/fholgado/minibufexpl.vim.git'
+Bundle 'http://github.com/cazador481/ea_color'
+Bundle 'http://github.com/petdance/vim-perl.git'
+"}}}
+
+syntax on
+color ea
+set visualbell
+set tags=tags;
+set nocompatible
+set history=1000
+set clipboard+=unnamed "uses x-11 clipboard
+set ruler
+set cmdheight=2
+set backspace=2 "make backspace work normal
+set showmatch
+set so=10
+set tabstop=3
+set shiftwidth=3
+set background=dark
+set cindent
+set number
+set expandtab
+set ic
+set diffopt+=iwhite " ignores white space
+"set path=.,/home/elash1/vesta-work/**,/home/elash1/hive/**,/mc/rtl/int/tnc.latest/hdl/src
+if exists('+autochdir')
+  set autochdir
+else
+  autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
+endif
+let g:EnhCommentifyUseAltKeys='yes'
+nnoremap <silent> <F8> :Tlist<CR>
+map <C-J> <C-w>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+"let g:miniBufExplModSelTarget = 1
+"let g:miniBufExplForceSyntaxEnable=1
+map <S-Enter> O<ESC>
+map <Enter> o<Esc>
+set exrc
+filetype indent on
+filetype plugin on
+"folding {{{
+"set foldenable
+"set foldmethod=syntax
+set wildmenu
+set wildmode=list:longest,full
+set mouse=a "enables mouse mode in console
+"}}}
+"Get completion to work sanely {{{
+"inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
+"inoremap <expr> <c-n> pumvisible() ? "\<lt>c-n>" : "\<lt>c-n>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
+"inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
+"}}}
+
+"let g:Perl_PerlTags	= "enable"
+set dir=/tmp "sets the temp directory for swap files
+
+"supertab settings {{{
+let g:SuperTabLongestHighlight=1
+let g:SuperTabDefaultCompletionType = "context"
+
+"}}}
+"
+"perl-support {{{
+let g:Perl_GlobalTemplateFile=$HOME.'/.vim/bundle/perl-support.vim/perl-support/templates/Templates'
+
+let g:Perl_TemplateOverriddenMsg='yes'
+"}}}
+"{{{ remap meta keys for enhcomentify
+map <C-c> <M-c> 
+"}}}
+
+"
+"perl settings {{{
+function! Perl()
+
+
+set showmatch
+"my perl includes pod
+let perl_include_pod;
+" syntax color ocmpex things like @(${"foo});
+let perl_include_pod=1
+endfunction
+"}}}
+set guifontset=Inconsolata\ 16 
+" vim: set fdm=marker:
