@@ -10,7 +10,7 @@ Bundle 'gmarik/vundle'
 
 "My bundles here {{{
 Bundle 'http://github.com/tpope/vim-fugitive'
-Bundle 'http://github.com/vim-scripts/perl-support.vim'
+Bundle 'http://github.com/cazador481/perl-support.vim.git'
 Bundle 'http://github.com/vim-scripts/a.vim.git'
 Bundle 'http://github.com/ervandew/supertab'
 Bundle 'http://github.com/gerw/EnhCommentify.vim'
