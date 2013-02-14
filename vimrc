@@ -16,7 +16,11 @@ Bundle 'http://github.com/ervandew/supertab'
 Bundle 'http://github.com/gerw/EnhCommentify.vim'
 Bundle 'http://github.com/fholgado/minibufexpl.vim.git'
 Bundle 'http://github.com/cazador481/ea_color'
-Bundle 'http://github.com/petdance/vim-perl.git'
+Bundle 'http://github.com/petdance/vim-perl'
+Bundle 'http://github.com/vim-scripts/vim-perl'
+Bundle 'http://github.com/vim-scripts/taglist.vim'
+Bundle 'https://github.com/SirVer/ultisnips.git'
+
 "}}}
 
 syntax on
@@ -46,7 +50,12 @@ else
   autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
 endif
 let g:EnhCommentifyUseAltKeys='yes'
+"{{{Tlist
+
 nnoremap <silent> <F8> :Tlist<CR>
+let tlist_perl_settings='perl;u:use;p:package;r:role;e:extends;c:constant;a:attribute;s:subroutine'
+let Tlist_Show_One_File = 1
+"}}}
 map <C-J> <C-w>j<C-W>_
 map <C-K> <C-W>k<C-W>_
 "let g:miniBufExplModSelTarget = 1
@@ -57,8 +66,9 @@ set exrc
 filetype indent on
 filetype plugin on
 "folding {{{
-"set foldenable
-"set foldmethod=syntax
+set foldenable
+set foldmethod=syntax
+let perl_fold=1
 set wildmenu
 set wildmode=list:longest,full
 set mouse=a "enables mouse mode in console
