@@ -1,0 +1,68 @@
+snippet program "program auto"
+program automatic ${1:program_name}();
+   ${1://body}
+endprogram
+endsnippet
+
+snippet initial "initial block"
+initial begin
+$1
+end
+endsnippet
+
+
+snippet ife "Conditional if..else (ife)"
+if ($1) 
+	${2:// body...}
+else 
+	${3:// else...}
+endsnippet
+
+snippet module "module"
+module ${1:module_name};
+   $2
+endmodule : $1
+endsnippet
+
+snippet interface "interface"
+interface ${1:module_name}(input bit ${2:clk});
+   $3
+endinterface : $1
+endsnippet
+
+snippet clocking "clocking"
+clocking ${1:module_name} @(${2:posedge} ${3:clk});
+   $4
+endclocking : $1
+endsnippet
+
+snippet task "task"
+task ${1:task_name}();
+   $2
+endtask : $1
+endsnippet
+
+snippet foreach "foreach"
+foreach my $1 ($2) begin
+   $3
+end
+endsnippet
+
+
+snippet class "class"
+class ${1:class_name};
+   $2;
+endclass: $1
+endsnippet
+
+snippet function "function"
+function ${1void} ${2:func_name}();
+  $3;
+endfunction : $2;
+endsnippet
+
+snippet package "package"
+package ${1:package_name};
+   $2;
+endpackage
+endsnippet
