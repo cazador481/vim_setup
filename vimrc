@@ -85,6 +85,8 @@ set dir=/tmp "sets the temp directory for swap files
 "supertab settings {{{
 let g:SuperTabLongestHighlight=1
 let g:SuperTabDefaultCompletionType = "context"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 "}}}
 "
@@ -98,6 +100,9 @@ map <C-c> <M-c>
 "}}}
 
 "
+"{{{UltiSnips
+let g:UltiSnipSinppetsDir="~/.vim/UltiSnips"
+
 "perl settings {{{
 function! Perl()
 
