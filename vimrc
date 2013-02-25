@@ -20,7 +20,7 @@ Bundle 'http://github.com/petdance/vim-perl'
 Bundle 'http://github.com/vim-scripts/vim-perl'
 Bundle 'http://github.com/vim-scripts/taglist.vim'
 Bundle 'https://github.com/SirVer/ultisnips.git'
-
+Bundle 'https://github.com/vim-scripts/verilog_systemverilog_fix.git'
 "}}}
 
 syntax on
@@ -95,6 +95,10 @@ let g:Perl_TemplateOverriddenMsg='yes'
 "}}}
 "{{{ remap meta keys for enhcomentify
 map <C-c> <M-c> 
+"}}}
+"{{{UltiSnips
+let g:UltiSnipSnippetsDir="~/.vim/UltiSnips"
+
 "}}}
 
 "
