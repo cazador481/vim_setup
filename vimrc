@@ -109,5 +109,12 @@ let perl_include_pod;
 let perl_include_pod=1
 endfunction
 "}}}
+"{{{make Control-direction switch between windows
+nmap <silent> <C-k> <C-w><C-k>
+nmap <silent> <C-k> <C-w><C-j>
+nmap <silent> <C-k> <C-w><C-h>
+nmap <silent> <C-k> <C-w><C-l>
+"}}}
+
 set guifontset=Inconsolata\ 16 
 " vim: set fdm=marker:
