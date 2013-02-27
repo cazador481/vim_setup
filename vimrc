@@ -1,9 +1,4 @@
 filetype off "pathogen needs to run before plugin indent on
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-
-
 
 "{{{autoinstall vundle
 
