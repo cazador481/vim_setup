@@ -2,13 +2,27 @@ filetype off "pathogen needs to run before plugin indent on
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-filetype plugin indent on
 
-"let Vundle manage Vundle
-"required !
+
+
+"{{{autoinstall vundle
+
+
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+   echo "Installing Vundle.."
+   echo ""
+   silent !mkdir -p ~/.vim/bundle
+   silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+   let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 Bundle 'gmarik/vundle'
-
-"My bundles here {{{
+"Add your bundles here
+"    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
+"{{{My bundles here
 Bundle 'http://github.com/tpope/vim-fugitive'
 Bundle 'http://github.com/cazador481/perl-support.vim.git'
 Bundle 'http://github.com/vim-scripts/a.vim.git'
@@ -22,6 +36,16 @@ Bundle 'http://github.com/vim-scripts/taglist.vim'
 Bundle 'https://github.com/SirVer/ultisnips.git'
 Bundle 'https://github.com/vim-scripts/verilog_systemverilog_fix.git'
 "}}}
+
+
+if iCanHazVundle == 0
+   echo "Installing Bundles, please ignore key map error messages"
+   echo ""
+   :BundleInstall
+endif
+
+"}}}
+filetype plugin indent on
 
 syntax on
 color ea
