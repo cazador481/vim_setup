@@ -124,6 +124,8 @@ map <C-c> <M-c>
 "}}}
 "{{{UltiSnips
 let g:UltiSnipSnippetsDir="~/.vim/UltiSnips"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 "}}}
 
