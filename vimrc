@@ -1,14 +1,31 @@
 filetype off "pathogen needs to run before plugin indent on
+"{{{autoinstall vundle
+
+
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+
+   echo "Installing Vundle.."
+   echo ""
+   if has("unix")
+      silent !mkdir -p ~/.vim/bundle
+      silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+   elseif (match(hostname(),"ELASH1-MOBL") >=0)
+      silent !mkdir /home/elash1/.vim/bundle
+      silent !git clone https://github.com/gmarik/vundle /home/elash1/.vim/bundle/vundle
+   else
+      silent !mkdir /home/eddie/.vim/bundle
+      silent !git clone https://github.com/gmarik/vundle /home/eddie/.vim/bundle/vundle
+   endif
+   let iCanHazVundle=0
+endif
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
-filetype plugin indent on
-
-"let Vundle manage Vundle
-"required !
 Bundle 'gmarik/vundle'
-
-"My bundles here {{{
+"Add your bundles here
+"    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
+"{{{My bundles here
 Bundle 'http://github.com/tpope/vim-fugitive'
 Bundle 'http://github.com/cazador481/perl-support.vim.git'
 Bundle 'http://github.com/vim-scripts/a.vim.git'
@@ -21,7 +38,18 @@ Bundle 'http://github.com/vim-scripts/vim-perl'
 Bundle 'http://github.com/vim-scripts/taglist.vim'
 Bundle 'https://github.com/SirVer/ultisnips.git'
 Bundle 'https://github.com/vim-scripts/verilog_systemverilog_fix.git'
+Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
 "}}}
+
+
+if iCanHazVundle == 0
+   echo "Installing Bundles, please ignore key map error messages"
+   echo ""
+   :BundleInstall
+endif
+
+"}}}
+filetype plugin indent on
 
 syntax on
 color ea
@@ -49,9 +77,9 @@ set ic
 set diffopt+=iwhite " ignores white space
 "set path=.,/home/elash1/vesta-work/**,/home/elash1/hive/**,/mc/rtl/int/tnc.latest/hdl/src
 if exists('+autochdir')
-  set autochdir
+   set autochdir
 else
-  autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
+   autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
 endif
 let g:EnhCommentifyUseAltKeys='yes'
 "{{{Tlist
@@ -84,11 +112,17 @@ set mouse=a "enables mouse mode in console
 "inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
 "}}}
 
-set dir=/tmp "sets the temp directory for swap files
+if has("unix")
+   set dir=/tmp "sets the temp directory for swap files
+else
+   set dir=$TEMP
+endif
 
 "supertab settings {{{
 let g:SuperTabLongestHighlight=1
 let g:SuperTabDefaultCompletionType = "context"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 "}}}
 "
