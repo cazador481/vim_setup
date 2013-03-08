@@ -49,6 +49,7 @@ end
 endsnippet
 
 
+
 snippet class "class"
 class ${1:class_name};
    $2;
@@ -73,3 +74,141 @@ while ($1) begin
 end
 endsnippet
 
+
+snippet build_phase "uvm build phase"
+function void build_phase(uvm_phase phase);
+      super.build_phase(phase);
+      assert( uvm_config_db #(virtual dut_if)::get(this, "", "dut_vi", dut_vi) );
+    endfunction : build_phase
+endsnippet
+
+
+snippet u_package "uvm package";
+package $1
+    import uvm_pgk::*;
+    $2
+endpackage: $1
+endsnippet
+
+snippet uvm_class "uvm class"
+class ${1:class_name} extends uvm_env;
+    \`uvm_component_utils($1)
+    
+    function new(string name, uvm_component parent);
+        super.new(name.parent);
+    endfunction: new
+
+    function void build_phase(uvm_phase phase);
+        super.build_phase(phase);
+        assert( uvm_config_db #(virtual dut_if)::get(this, "", "dut_vi", dut_vi) );
+    endfunction : build_phase
+
+    function run_phase(uvm_phase phase);
+
+    endtask: run_phase 
+
+    $2
+endclass: $1
+endsnippet
+
+snippet ctest "uvm test class"
+class $1 extends uvm_test;
+  
+    \`uvm_component_utils($1)
+    
+${2://declare env here} $2_h;
+    
+    function new(string name, uvm_component parent);
+        super.new(name, parent);
+    endfunction: new
+    
+    function void build_phase(uvm_phase phase);
+        super.build_phase(phase);
+        if( !uvm_resource_db#(virtual ${3:dut}_if)::read_by_name("$3_ifs", "$3_vi", $3_vi, this))
+            `uvm_fatal("NOVIF", "No virtual interface set")
+        uvm_config_db #(virtual $3_if)::set(this, "*", "$3_vi", $3_vi); 
+        $2_h = $2::type_id::create("$2_h", this);
+
+    endfunction: build_phase
+    task run_phase(uvm_phase phase);
+        ${4:call create here}
+    endtask: run_phase
+    
+endclass: $1
+endsnippet
+
+snippet craete "uvmtest create"
+${1type} ${2var};
+$2=$1::type_id::craete("$2");
+${3://modify sequence here if need be}
+$3.start(${4:full.path.to.sequencer_h});
+endsnippet
+
+
+snippet u_agent "uvm agent  class"
+class ${1:agent name} extends uvm_agent;
+   \`uvm_component_utils($1)
+   
+   function new(string name, uvm_component_utils parent );
+      super.new(name,parent);
+   endfunction: new
+
+   function void build_phase(uvm_phase phase); //create child componenets
+      super.build_phase(phase);
+      //instanciate lower level components here
+      // my_sequencer::type_id::create("my_sequence_h", this);
+   endfunction: build_phase
+
+   function void connect_phase(uvm_phase phase); // connect child components
+   endfunction: connect_phase
+endclass: $1
+endsnippet
+
+snippet u_sequence "uvm sequence class"
+class ${1:class_name} extends uvm_sequence #(${2:transaction_name};
+   \`uvm_object_utils(my_sequence)
+
+   function new(String name="");
+     supter.name(name);
+   endfunction: new
+
+   task body; // the behavior of the sequence
+      uvm_test_done.raise_objection(this);
+      ${2//task body, usually call create here}
+      uvm_test_done.drop_objection(this);
+   endtask: body
+endclass: $1
+endsnippet
+
+snippet create "uvm sequence create"
+${1:type} ${2:var}
+$2=$1::type_id::create("$2");
+start_item($2);
+${3://modify tx here}
+finish_item(seq);
+endsnippet
+
+
+snippet u_monitor "uvm monitor class"
+class ${1:monitor_name} extends uvm_monitor;
+   \`uvm_component_utils($1);
+   uvm_analysis_port #{2:tx_class} $2;
+
+   function new
+   endfunction
+
+   function void build_phase(uvm_phase phase);
+      super.build_phase(phase);
+      $2=new("$2",this);
+   endfunction
+
+   task run_phase(uvm_phase phase);
+      forever
+      begin
+         $3 tx;
+
+         //stuff goes here
+         $2.write(tx); // broadcast
+      endforever
+   endtask;
+endsnippet
