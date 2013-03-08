@@ -1,15 +1,23 @@
 filetype off "pathogen needs to run before plugin indent on
-
 "{{{autoinstall vundle
 
 
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
 if !filereadable(vundle_readme)
+
    echo "Installing Vundle.."
    echo ""
-   silent !mkdir -p ~/.vim/bundle
-   silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+   if has("unix")
+      silent !mkdir -p ~/.vim/bundle
+      silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+   elseif (match(hostname(),"ELASH1-MOBL") >=0)
+      silent !mkdir /home/elash1/.vim/bundle
+      silent !git clone https://github.com/gmarik/vundle /home/elash1/.vim/bundle/vundle
+   else
+      silent !mkdir /home/eddie/.vim/bundle
+      silent !git clone https://github.com/gmarik/vundle /home/eddie/.vim/bundle/vundle
+   endif
    let iCanHazVundle=0
 endif
 set rtp+=~/.vim/bundle/vundle/
@@ -30,6 +38,7 @@ Bundle 'http://github.com/vim-scripts/vim-perl'
 Bundle 'http://github.com/vim-scripts/taglist.vim'
 Bundle 'https://github.com/SirVer/ultisnips.git'
 Bundle 'https://github.com/vim-scripts/verilog_systemverilog_fix.git'
+Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
 "}}}
 
 
@@ -54,19 +63,23 @@ set cmdheight=2
 set backspace=2 "make backspace work normal
 set showmatch
 set so=10
-set tabstop=3
-set shiftwidth=3
 set background=dark
-set cindent
-set number
+
+"{{{indent
+set tabstop=4
+set shiftwidth=4
 set expandtab
+set cindent
+"}}}
+
+set number
 set ic
 set diffopt+=iwhite " ignores white space
 "set path=.,/home/elash1/vesta-work/**,/home/elash1/hive/**,/mc/rtl/int/tnc.latest/hdl/src
 if exists('+autochdir')
-  set autochdir
+   set autochdir
 else
-  autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
+   autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
 endif
 let g:EnhCommentifyUseAltKeys='yes'
 "{{{Tlist
@@ -75,8 +88,10 @@ nnoremap <silent> <F8> :Tlist<CR>
 let tlist_perl_settings='perl;u:use;p:package;r:role;e:extends;c:constant;a:attribute;s:subroutine'
 let Tlist_Show_One_File = 1
 "}}}
+"{{{window map change
 map <C-J> <C-w>j<C-W>_
 map <C-K> <C-W>k<C-W>_
+"}}}
 "let g:miniBufExplModSelTarget = 1
 "let g:miniBufExplForceSyntaxEnable=1
 map <S-Enter> O<ESC>
@@ -87,7 +102,6 @@ filetype plugin on
 "folding {{{
 set foldenable
 set foldmethod=syntax
-let perl_fold=1
 set wildmenu
 set wildmode=list:longest,full
 set mouse=a "enables mouse mode in console
@@ -98,8 +112,11 @@ set mouse=a "enables mouse mode in console
 "inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
 "}}}
 
-"let g:Perl_PerlTags	= "enable"
-set dir=/tmp "sets the temp directory for swap files
+if has("unix")
+   set dir=/tmp "sets the temp directory for swap files
+else
+   set dir=$TEMP
+endif
 
 "supertab settings {{{
 let g:SuperTabLongestHighlight=1
@@ -109,34 +126,35 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 "}}}
 "
+"{{{ remap meta keys for enhcomentify
+map <C-c> <M-c> 
+"}}}
+
+"{{{UltiSnips
+let g:UltiSnipSnippetsDir="~/.vim/UltiSnips"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit ="vertical"
+
+"}}}
+
 "perl-support {{{
 let g:Perl_GlobalTemplateFile=$HOME.'/.vim/bundle/perl-support.vim/perl-support/templates/Templates'
 
 let g:Perl_TemplateOverriddenMsg='yes'
 "}}}
-"{{{ remap meta keys for enhcomentify
-map <C-c> <M-c> 
-"}}}
-"{{{UltiSnips
-let g:UltiSnipSnippetsDir="~/.vim/UltiSnips"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-"}}}
-
-"
-"{{{UltiSnips
-let g:UltiSnipSinppetsDir="~/.vim/UltiSnips"
 
 "perl settings {{{
 function! Perl()
 
 
-set showmatch
-"my perl includes pod
-let perl_include_pod;
-" syntax color ocmpex things like @(${"foo});
-let perl_include_pod=1
+   let perl_fold=1
+   set showmatch
+   "my perl includes pod
+   let perl_include_pod;
+   " syntax color ocmpex things like @(${"foo});
+   let perl_include_pod=1
 endfunction
 "}}}
 set guifontset=Inconsolata\ 16 
