@@ -1,3 +1,11 @@
+snippet struct "structure"
+struct {
+$3
+} ${2:name};
+endsnippet
+
+
+
 snippet program "program auto"
 program automatic ${1:program_name}();
    ${1://body}
@@ -83,7 +91,7 @@ function void build_phase(uvm_phase phase);
 endsnippet
 
 
-snippet u_package "uvm package";
+snippet u_package "uvm package"
 package $1
     import uvm_pgk::*;
     $2
