@@ -30,7 +30,8 @@ Bundle 'http://github.com/tpope/vim-fugitive'
 Bundle 'http://github.com/cazador481/perl-support.vim.git'
 Bundle 'http://github.com/vim-scripts/a.vim.git'
 Bundle 'http://github.com/ervandew/supertab'
-Bundle 'http://github.com/gerw/EnhCommentify.vim'
+"Bundle 'http://github.com/gerw/EnhCommentify.vim'
+Bundle 'http://github.com/scrooloose/nerdcommenter'
 Bundle 'http://github.com/fholgado/minibufexpl.vim.git'
 Bundle 'http://github.com/cazador481/ea_color'
 Bundle 'http://github.com/petdance/vim-perl'
@@ -39,7 +40,10 @@ Bundle 'http://github.com/vim-scripts/taglist.vim'
 Bundle 'https://github.com/SirVer/ultisnips.git'
 Bundle 'https://github.com/vim-scripts/verilog_systemverilog_fix.git'
 Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
+Bundle 'perrywky/vim-matchit'
+
 "}}}
+"
 
 
 if iCanHazVundle == 0
@@ -127,7 +131,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "}}}
 "
 "{{{ remap meta keys for enhcomentify
-map <C-c> <M-c> 
+"map <C-c> <M-c> 
 "}}}
 
 "{{{UltiSnips
@@ -158,4 +162,6 @@ function! Perl()
 endfunction
 "}}}
 set guifontset=Inconsolata\ 16 
+    let g:NERDCustomDelimiters = { 'verliog_systemverilog': { 'left': '#', }, }
+
 " vim: set fdm=marker:
