@@ -91,6 +91,8 @@ let Tlist_Show_One_File = 1
 "{{{window map change
 map <C-J> <C-w>j<C-W>_
 map <C-K> <C-W>k<C-W>_
+map <C-H> <C-W>h<C-W>_
+map <C-l> <C-W>l<C-W>_
 "}}}
 "let g:miniBufExplModSelTarget = 1
 "let g:miniBufExplForceSyntaxEnable=1
