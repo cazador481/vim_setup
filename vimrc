@@ -117,12 +117,13 @@ set mouse=a "enables mouse mode in console
 "inoremap <expr> <c-n> pumvisible() ? "\<lt>c-n>" : "\<lt>c-n>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
 "inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
 "}}}
-
+"{{{ temp directory
 if has("unix")
    set dir=/tmp "sets the temp directory for swap files
 else
    set dir=$TEMP
 endif
+"}}}
 
 "supertab settings {{{
 let g:SuperTabLongestHighlight=1
@@ -167,6 +168,8 @@ nmap <silent> <C-k> <C-w><C-l>
 "}}}
 
 set guifontset=Inconsolata\ 16 
-    let g:NERDCustomDelimiters = { 'verliog_systemverilog': { 'left': '#', }, }
+"{{{ Nerd Commenter
+let g:NERDCustomDelimiters = { 'verliog_systemverilog': { 'left': '#', }, }
+"}}}
 
 " vim: set fdm=marker:
