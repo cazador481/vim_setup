@@ -43,7 +43,7 @@ Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
 Bundle 'cazador481/vim-systemc'
 Bundle 'perrywky/vim-matchit'
 Bundle 'tomasr/molokai'
-
+Bundle 'Lokaltog/powerline'
 "}}}
 "
 
@@ -95,6 +95,8 @@ let Tlist_Show_One_File = 1
 "{{{window map change
 map <C-J> <C-w>j<C-W>_
 map <C-K> <C-W>k<C-W>_
+map <C-H> <C-W>h<C-W>_
+map <C-l> <C-W>l<C-W>_
 "}}}
 "let g:miniBufExplModSelTarget = 1
 "let g:miniBufExplForceSyntaxEnable=1
@@ -157,7 +159,12 @@ function! Perl()
    let perl_include_pod=1
 endfunction
 "}}}
-
+"{{{make Control-direction switch between windows
+nmap <silent> <C-k> <C-w><C-k>
+nmap <silent> <C-k> <C-w><C-j>
+nmap <silent> <C-k> <C-w><C-h>
+nmap <silent> <C-k> <C-w><C-l>
+"}}}
 
 set guifontset=Inconsolata\ 16 
     let g:NERDCustomDelimiters = { 'verliog_systemverilog': { 'left': '#', }, }
