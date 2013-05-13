@@ -39,6 +39,7 @@ Bundle 'http://github.com/vim-scripts/taglist.vim'
 Bundle 'https://github.com/SirVer/ultisnips.git'
 Bundle 'https://github.com/vim-scripts/verilog_systemverilog_fix.git'
 Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
+Bundle 'Lokaltog/powerline'
 "}}}
 
 
