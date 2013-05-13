@@ -40,7 +40,9 @@ Bundle 'http://github.com/vim-scripts/taglist.vim'
 Bundle 'https://github.com/SirVer/ultisnips.git'
 Bundle 'https://github.com/vim-scripts/verilog_systemverilog_fix.git'
 Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
+Bundle 'cazador481/vim-systemc'
 Bundle 'perrywky/vim-matchit'
+Bundle 'tomasr/molokai'
 
 "}}}
 "
@@ -68,18 +70,16 @@ set backspace=2 "make backspace work normal
 set showmatch
 set so=10
 set background=dark
-
+let g:load_doxygen_syntax=1
+set number
+set ic
+set diffopt+=iwhite " ignores white space
 "{{{indent
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set cindent
 "}}}
-
-set number
-set ic
-set diffopt+=iwhite " ignores white space
-"set path=.,/home/elash1/vesta-work/**,/home/elash1/hive/**,/mc/rtl/int/tnc.latest/hdl/src
 if exists('+autochdir')
    set autochdir
 else
@@ -129,11 +129,9 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 "}}}
-"
 "{{{ remap meta keys for enhcomentify
 "map <C-c> <M-c> 
 "}}}
-
 "{{{UltiSnips
 let g:UltiSnipSnippetsDir="~/.vim/UltiSnips"
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -142,13 +140,11 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit ="vertical"
 
 "}}}
-
 "perl-support {{{
 let g:Perl_GlobalTemplateFile=$HOME.'/.vim/bundle/perl-support.vim/perl-support/templates/Templates'
 
 let g:Perl_TemplateOverriddenMsg='yes'
 "}}}
-
 "perl settings {{{
 function! Perl()
 
@@ -161,6 +157,8 @@ function! Perl()
    let perl_include_pod=1
 endfunction
 "}}}
+
+
 set guifontset=Inconsolata\ 16 
     let g:NERDCustomDelimiters = { 'verliog_systemverilog': { 'left': '#', }, }
 
