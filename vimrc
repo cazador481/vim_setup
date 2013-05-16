@@ -55,10 +55,13 @@ if iCanHazVundle == 0
 endif
 
 "}}}
+set exrc
+filetype plugin on
+filetype indent on
 filetype plugin indent on
 
 syntax on
-color ea
+color blue
 set visualbell
 set tags=tags;
 set nocompatible
@@ -102,9 +105,6 @@ map <C-l> <C-W>l<C-W>_
 "let g:miniBufExplForceSyntaxEnable=1
 map <S-Enter> O<ESC>
 map <Enter> o<Esc>
-set exrc
-filetype indent on
-filetype plugin on
 "folding {{{
 set foldenable
 set foldmethod=syntax
@@ -171,5 +171,8 @@ set guifontset=Inconsolata\ 16
 "{{{ Nerd Commenter
 let g:NERDCustomDelimiters = { 'verliog_systemverilog': { 'left': '#', }, }
 "}}}
+
+let g:indent_guides_start=2
+let g:indent_guides_guide_size=1
 
 " vim: set fdm=marker:
