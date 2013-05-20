@@ -44,6 +44,10 @@ Bundle 'cazador481/vim-systemc'
 Bundle 'perrywky/vim-matchit'
 Bundle 'tomasr/molokai'
 Bundle 'Lokaltog/powerline'
+Bundle 'kien/ctrlp.vim'
+if has("unix") && (v:version <703 || has('patch584'))
+   Bundle 'Valloric/YouCompleteMe' 
+endif
 "}}}
 "
 
@@ -61,7 +65,7 @@ filetype indent on
 filetype plugin indent on
 
 syntax on
-color blue
+color ea
 set visualbell
 set tags=tags;
 set nocompatible
@@ -84,11 +88,11 @@ set expandtab
 set cindent
 "}}}
 "{{{autochdir
-if exists('+autochdir')
-   set autochdir
-else
-   autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
-endif
+"if exists('+autochdir')
+   "set autochdir
+"else
+   "autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
+"endif
 "}}}
 let g:EnhCommentifyUseAltKeys='yes'
 "{{{Tlist
