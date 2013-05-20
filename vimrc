@@ -26,7 +26,7 @@ Bundle 'gmarik/vundle'
 "Add your bundles here
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 "{{{My bundles here
-Bundle 'http://github.com/tpope/vim-fugitive'
+"Bundle 'http://github.com/tpope/vim-fugitive'
 Bundle 'http://github.com/cazador481/perl-support.vim.git'
 Bundle 'http://github.com/vim-scripts/a.vim.git'
 Bundle 'http://github.com/ervandew/supertab'
@@ -35,7 +35,7 @@ Bundle 'http://github.com/scrooloose/nerdcommenter'
 Bundle 'http://github.com/fholgado/minibufexpl.vim.git'
 Bundle 'http://github.com/cazador481/ea_color'
 Bundle 'http://github.com/petdance/vim-perl'
-Bundle 'http://github.com/vim-scripts/vim-perl'
+"Bundle 'http://github.com/vim-scripts/vim-perl'
 Bundle 'http://github.com/vim-scripts/taglist.vim'
 Bundle 'https://github.com/SirVer/ultisnips.git'
 Bundle 'https://github.com/vim-scripts/verilog_systemverilog_fix.git'
@@ -83,11 +83,13 @@ set shiftwidth=4
 set expandtab
 set cindent
 "}}}
+"{{{autochdir
 if exists('+autochdir')
    set autochdir
 else
    autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
 endif
+"}}}
 let g:EnhCommentifyUseAltKeys='yes'
 "{{{Tlist
 
