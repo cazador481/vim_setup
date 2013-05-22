@@ -45,6 +45,9 @@ Bundle 'perrywky/vim-matchit'
 Bundle 'tomasr/molokai'
 Bundle 'Lokaltog/powerline'
 Bundle 'kien/ctrlp.vim'
+Bundle 'ewiplayer/vim-protodef'
+Bundle 'FSwitch'
+Bundle 'https://github.com/cazador481/vim-cute-perl.git'
 if has("unix") && (v:version <703 || has('patch584'))
    Bundle 'Valloric/YouCompleteMe' 
 endif
@@ -65,6 +68,9 @@ filetype indent on
 filetype plugin indent on
 
 syntax on
+"set t_AB=^[[48;5;%dm
+"set t_AF=^[[38;5;%dm
+set t_Co=256 "set 256 colors*/
 color ea
 set visualbell
 set tags=tags;
@@ -155,6 +161,7 @@ let g:Perl_GlobalTemplateFile=$HOME.'/.vim/bundle/perl-support.vim/perl-support/
 let g:Perl_TemplateOverriddenMsg='yes'
 "}}}
 "perl settings {{{
+autocmd FileType perl set equalprg=perltidy
 function! Perl()
 
 
@@ -178,7 +185,22 @@ set guifontset=Inconsolata\ 16
 let g:NERDCustomDelimiters = { 'verliog_systemverilog': { 'left': '#', }, }
 "}}}
 
-let g:indent_guides_start=2
+"{{{indent_guides
+let g:indent_guides_start=1
 let g:indent_guides_guide_size=1
+let g:indent_guides_enable_on_vim_startup=1
+"}}}
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  "setglobal bomb
+  set fileencodings=ucs-bom,utf-8,latin1
+  set ambiwidth=double
+endif
+
+
 
 " vim: set fdm=marker:
