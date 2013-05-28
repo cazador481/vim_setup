@@ -1,69 +1,75 @@
+set nocompatible
 filetype off "pathogen needs to run before plugin indent on
-"{{{autoinstall vundle
+"{{{autoinstall neobundle
 
 
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
+let iCanHazBundle=1
+let bundle_readme=expand('~/.vim/bundle/neobundle/README.md')
+if !filereadable(bundle_readme)
 
-   echo "Installing Vundle.."
+   echo "Installing Neobundle.."
    echo ""
    if has("unix")
       silent !mkdir -p ~/.vim/bundle
-      silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+      silent !git clone https://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle
    elseif (match(hostname(),"ELASH1-MOBL") >=0)
       silent !mkdir /home/elash1/.vim/bundle
-      silent !git clone https://github.com/gmarik/vundle /home/elash1/.vim/bundle/vundle
+      silent !git clone https://github.com/Shougo/neobundle /home/elash1/.vim/bundle/neobundle
    else
       silent !mkdir /home/eddie/.vim/bundle
-      silent !git clone https://github.com/gmarik/vundle /home/eddie/.vim/bundle/vundle
+      silent !git clone https://github.com/gmarik/neobundle /home/eddie/.vim/bundle/neobundle
    endif
-   let iCanHazVundle=0
+   let iCanHazBundle=0
 endif
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/neobundle/
+call neobundle#rc()
 "}}}
-Bundle 'gmarik/vundle'
+"NeoBundleFetch 'Shougo/neobundle'
 "Add your bundles here
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 "{{{My bundles here
 "Bundle 'http://github.com/tpope/vim-fugitive'
-Bundle 'bling/vim-bufferline'
-Bundle 'http://github.com/cazador481/perl-support.vim.git'
-Bundle 'http://github.com/vim-scripts/a.vim.git'
-Bundle 'http://github.com/ervandew/supertab'
-"Bundle 'http://github.com/gerw/EnhCommentify.vim'
-Bundle 'http://github.com/scrooloose/nerdcommenter'
-Bundle 'http://github.com/fholgado/minibufexpl.vim.git'
-Bundle 'http://github.com/cazador481/ea_color'
-Bundle 'http://github.com/petdance/vim-perl'
-"Bundle 'http://github.com/vim-scripts/vim-perl'
-Bundle 'http://github.com/vim-scripts/taglist.vim'
-Bundle 'https://github.com/SirVer/ultisnips.git'
-Bundle 'https://github.com/vim-scripts/verilog_systemverilog_fix.git'
-Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
-Bundle 'cazador481/vim-systemc'
-Bundle 'perrywky/vim-matchit'
-Bundle 'tomasr/molokai'
-Bundle 'Lokaltog/powerline'
-Bundle 'kien/ctrlp.vim'
-Bundle 'ewiplayer/vim-protodef'
-Bundle 'FSwitch'
-Bundle 'Shougo/vimproc'
-Bundle 'https://github.com/cazador481/vim-cute-perl.git'
+NeoBundle 'http://github.com/bling/vim-bufferline'
+NeoBundle 'http://github.com/cazador481/perl-support.vim.git'
+NeoBundle 'http://github.com/vim-scripts/a.vim.git'
+NeoBundle 'http://github.com/ervandew/supertab'
+NeoBundle 'http://github.com/scrooloose/nerdcommenter'
+NeoBundle 'http://github.com/fholgado/minibufexpl.vim.git'
+NeoBundle 'http://github.com/cazador481/ea_color'
+NeoBundle 'http://github.com/petdance/vim-perl'
+NeoBundle 'http://github.com/vim-scripts/taglist.vim'
+NeoBundle 'http://github.com/SirVer/ultisnips.git'
+NeoBundle 'http://github.com/vim-scripts/verilog_systemverilog_fix.git'
+NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
+NeoBundle 'http://github.com/cazador481/vim-systemc'
+NeoBundle 'http://github.com/perrywky/vim-matchit'
+NeoBundle 'http://github.com/tomasr/molokai'
+NeoBundle 'http://github.com/Lokaltog/powerline'
+NeoBundle 'http://github.com/kien/ctrlp.vim'
+NeoBundle 'http://github.com/derekwyatt/vim-protodef'
+NeoBundle 'http://github.com/vim-scripts/FSwitch'
+NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
+NeoBundle 'http://github.com/Shougo/unite.vim' 
+"NeoBundle 'http://github.com/Shougo/vimproc', {
+      "\ 'build' : {
+      "\     'windows' : 'make -f make_mingw32.mak',
+      "\     'cygwin' : 'make -f make_cygwin.mak',
+      "\     'mac' : 'make -f make_mac.mak',
+      "\     'unix' : 'make -f make_unix.mak',
+      "\    },
+"      \ }
 if has("unix") && (v:version <703 || has('patch584'))
-   Bundle 'Valloric/YouCompleteMe' 
+   NeoBundle 'Valloric/YouCompleteMe' 
 endif
 "}}}
 "
 
 
-if iCanHazVundle == 0
-   echo "Installing Bundles, please ignore key map error messages"
-   echo ""
-   :BundleInstall
-endif
-
+"if iCanHazBundle == 0
+   "echo "Installing Bundles, please ignore key map error messages"
+   "echo ""
+   "NeoBundleCheck
+"endif
 set exrc
 filetype plugin on
 filetype indent on
@@ -73,7 +79,7 @@ syntax on
 "set t_AB=^[[48;5;%dm
 "set t_AF=^[[38;5;%dm
 set t_Co=256 "set 256 colors*/
-color ea
+color torte "ea
 set visualbell
 set tags=tags;
 set nocompatible
