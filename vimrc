@@ -22,11 +22,13 @@ if !filereadable(vundle_readme)
 endif
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+"}}}
 Bundle 'gmarik/vundle'
 "Add your bundles here
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 "{{{My bundles here
 "Bundle 'http://github.com/tpope/vim-fugitive'
+Bundle 'bling/vim-bufferline'
 Bundle 'http://github.com/cazador481/perl-support.vim.git'
 Bundle 'http://github.com/vim-scripts/a.vim.git'
 Bundle 'http://github.com/ervandew/supertab'
@@ -47,6 +49,7 @@ Bundle 'Lokaltog/powerline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'ewiplayer/vim-protodef'
 Bundle 'FSwitch'
+Bundle 'Shougo/vimproc'
 Bundle 'https://github.com/cazador481/vim-cute-perl.git'
 if has("unix") && (v:version <703 || has('patch584'))
    Bundle 'Valloric/YouCompleteMe' 
@@ -61,7 +64,6 @@ if iCanHazVundle == 0
    :BundleInstall
 endif
 
-"}}}
 set exrc
 filetype plugin on
 filetype indent on
