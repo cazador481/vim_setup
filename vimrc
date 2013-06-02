@@ -36,7 +36,7 @@ NeoBundle 'http://github.com/ervandew/supertab'
 NeoBundle 'http://github.com/scrooloose/nerdcommenter'
 NeoBundle 'http://github.com/fholgado/minibufexpl.vim.git'
 NeoBundle 'http://github.com/cazador481/ea_color'
-NeoBundle 'http://github.com/petdance/vim-perl'
+NeoBundle 'http://github.com/vim-perl/vim-perl'
 NeoBundle 'http://github.com/vim-scripts/taglist.vim'
 NeoBundle 'http://github.com/SirVer/ultisnips.git'
 NeoBundle 'http://github.com/vim-scripts/verilog_systemverilog_fix.git'
@@ -79,7 +79,7 @@ syntax on
 "set t_AB=^[[48;5;%dm
 "set t_AF=^[[38;5;%dm
 set t_Co=256 "set 256 colors*/
-color torte "ea
+color ea
 set visualbell
 set tags=tags;
 set nocompatible
@@ -133,9 +133,10 @@ set wildmode=list:longest,full
 set mouse=a "enables mouse mode in console
 "}}}
 "Get completion to work sanely {{{
-"inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
-"inoremap <expr> <c-n> pumvisible() ? "\<lt>c-n>" : "\<lt>c-n>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
-"inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
+inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
+inoremap <expr> <c-n> pumvisible() ? "\<lt>c-n>" : "\<lt>c-n>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
+inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
+set completeopt=longest,menuone
 "}}}
 "{{{ temp directory
 if has("unix")
@@ -190,7 +191,7 @@ nmap <silent> <C-k> <C-w><C-l>
 
 set guifontset=Inconsolata\ 16 
 "{{{ Nerd Commenter
-let g:NERDCustomDelimiters = { 'verliog_systemverilog': { 'left': '#', }, }
+let g:NERDCustomDelimiters = { 'verilog_systemverilog': { 'left': '//', }, }
 "}}}
 
 "{{{indent_guides
