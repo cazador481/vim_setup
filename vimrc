@@ -14,10 +14,10 @@ if !filereadable(bundle_readme)
       silent !git clone https://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle
    elseif (match(hostname(),"ELASH1-MOBL") >=0)
       silent !mkdir /home/elash1/.vim/bundle
-      silent !git clone https://github.com/Shougo/neobundle /home/elash1/.vim/bundle/neobundle
+      silent !git clone https://github.com/Shougo/neobundle.vim.git /home/elash1/.vim/bundle/neobundle
    else
-      silent !mkdir /home/eddie/.vim/bundle
-      silent !git clone https://github.com/gmarik/neobundle /home/eddie/.vim/bundle/neobundle
+      silent !mkdir c:\home\eddie\.vim\bundle
+      silent !git clone https://github.com/Shougo/neobundle.vim.git \home\eddie\.vim\bundle\neobundle
    endif
    let iCanHazBundle=0
 endif
