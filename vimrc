@@ -39,7 +39,7 @@ NeoBundle 'http://github.com/cazador481/ea_color'
 NeoBundle 'http://github.com/vim-perl/vim-perl'
 NeoBundle 'http://github.com/vim-scripts/taglist.vim'
 NeoBundle 'http://github.com/SirVer/ultisnips.git'
-NeoBundle 'http://github.com/vim-scripts/verilog_systemverilog_fix.git'
+NeoBundle 'http://github.com/cazador481/verilog_systemverilog_fix.git'
 NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
 NeoBundle 'http://github.com/cazador481/vim-systemc'
 NeoBundle 'http://github.com/perrywky/vim-matchit'
@@ -50,15 +50,15 @@ NeoBundle 'http://github.com/derekwyatt/vim-protodef'
 NeoBundle 'http://github.com/vim-scripts/FSwitch'
 NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
 NeoBundle 'http://github.com/Shougo/unite.vim' 
-"NeoBundle 'http://github.com/Shougo/vimproc', {
-      "\ 'build' : {
-      "\     'windows' : 'make -f make_mingw32.mak',
-      "\     'cygwin' : 'make -f make_cygwin.mak',
-      "\     'mac' : 'make -f make_mac.mak',
-      "\     'unix' : 'make -f make_unix.mak',
-      "\    },
-"      \ }
-if has("unix") && (v:version <703 || has('patch584'))
+NeoBundle 'http://github.com/Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
+if has("unix") && (v:version >703 || has('patch584'))
    NeoBundle 'Valloric/YouCompleteMe' 
 endif
 "}}}
