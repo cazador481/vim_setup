@@ -50,6 +50,8 @@ NeoBundle 'http://github.com/derekwyatt/vim-protodef'
 NeoBundle 'http://github.com/vim-scripts/FSwitch'
 NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
 NeoBundle 'http://github.com/Shougo/unite.vim' 
+NeoBundle 'http://github.com/kien/rainbow_parentheses.vim'
+"if has("unix") && (v:version >703 || has('patch584'))*/
 NeoBundle 'http://github.com/Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
@@ -193,7 +195,12 @@ set guifontset=Inconsolata\ 16
 "{{{ Nerd Commenter
 let g:NERDCustomDelimiters = { 'verilog_systemverilog': { 'left': '//', }, }
 "}}}
-
+"{{{ Rainbow Parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+"}}}
 "{{{indent_guides
 let g:indent_guides_start=1
 let g:indent_guides_guide_size=1
