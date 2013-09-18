@@ -1,6 +1,4 @@
 set nocompatible
-
-
 filetype off "pathogen needs to run before plugin indent on
 "{{{autoinstall neobundle
 
@@ -31,6 +29,7 @@ call neobundle#rc()
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 "{{{My bundles here
 "Bundle 'http://github.com/tpope/vim-fugitive'
+NeoBundle 'bling/vim-airline'
 NeoBundle 'http://github.com/bling/vim-bufferline'
 NeoBundle 'http://github.com/cazador481/perl-support.vim.git'
 NeoBundle 'http://github.com/cazador481/ea_color'
@@ -211,6 +210,7 @@ let g:indent_guides_start=1
 let g:indent_guides_guide_size=1
 let g:indent_guides_enable_on_vim_startup=1
 "}}}
+function! Is_hd()
 perl <<EOF
 sub is_hd {
     my $hostname = `hostname`;
@@ -222,7 +222,6 @@ sub is_hd {
 
 }
 EOF
-function! Is_hd()
     perl is_hd
     if exists('retVal')
           return retVal
@@ -296,6 +295,20 @@ let g:neocomplcache_enable_at_startup=1
 
 
 
+"{{{airline
+set noshowmode
+
+let g:airline_theme='powerlineish'
+let g:airline_enable_branch=1
+let g:airline_powerline_fonts=1
+let g:airline_detect_whitespace = 1
+let g:airline#extensions#hunks#non_zero_only = 1
+
+let g:airline#extensions#tabline#enabled = 2
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#buffer_min_count = 1
+
+"}}}
 "{{{ultisnips
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
