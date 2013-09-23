@@ -24,7 +24,7 @@ endif
 set rtp+=~/.vim/bundle/neobundle/
 call neobundle#rc()
 "}}}
-"NeoBundleFetch 'Shougo/neobundle'
+NeoBundleFetch 'Shougo/neobundle'
 "Add your bundles here
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 "{{{My bundles here
@@ -34,13 +34,13 @@ NeoBundle 'http://github.com/bling/vim-bufferline'
 NeoBundle 'http://github.com/cazador481/perl-support.vim.git'
 NeoBundle 'http://github.com/cazador481/ea_color'
 NeoBundle 'http://github.com/cazador481/verilog_systemverilog_fix.git'
-NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
+"NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
 NeoBundle 'http://github.com/cazador481/vim-systemc'
 "NeoBundle 'http://github.com/vim-scripts/a.vim.git'
 "NeoBundle 'http://github.com/ervandew/supertab'
 NeoBundle 'http://github.com/scrooloose/nerdcommenter'
-NeoBundle 'http://github.com/fholgado/minibufexpl.vim.git'
-NeoBundle 'http://github.com/vim-perl/vim-perl'
+"NeoBundle 'http://github.com/fholgado/minibufexpl.vim.git'
+"NeoBundle 'http://github.com/vim-perl/vim-perl'
 NeoBundle 'http://github.com/vim-scripts/taglist.vim'
 "NeoBundle 'http://github.com/SirVer/ultisnips.git'
 NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
@@ -175,19 +175,6 @@ let g:Perl_GlobalTemplateFile=$HOME.'/.vim/bundle/perl-support.vim/perl-support/
 
 let g:Perl_TemplateOverriddenMsg='yes'
 "}}}
-"perl settings {{{
-autocmd FileType perl set equalprg=perltidy
-function! Perl()
-
-
-   let perl_fold=1
-   set showmatch
-   "my perl includes pod
-   let perl_include_pod;
-   " syntax color ocmpex things like @(${"foo});
-   let perl_include_pod=1
-endfunction
-"}}}
 "{{{make Control-direction switch between windows
 nmap <silent> <C-k> <C-w><C-k>
 nmap <silent> <C-k> <C-w><C-j>
@@ -233,7 +220,9 @@ if has("multi_byte")
         if &termencoding == ""
             let &termencoding = &encoding
         endif
-set t_Co=256 "set 256 colors*/
+        if !has('gui_running')
+            "set t_Co = 256 "set 256 colors*/
+        endif
         set encoding=utf-8
         setglobal fileencoding=utf-8
         setglobal bomb
