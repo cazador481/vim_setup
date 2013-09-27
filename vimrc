@@ -24,12 +24,12 @@ endif
 set rtp+=~/.vim/bundle/neobundle/
 call neobundle#rc()
 "}}}
-NeoBundleFetch 'Shougo/neobundle'
+NeoBundleFetch 'http://github.com/Shougo/neobundle'
 "Add your bundles here
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 "{{{My bundles here
 "Bundle 'http://github.com/tpope/vim-fugitive'
-NeoBundle 'bling/vim-airline'
+NeoBundle 'http://github.com/bling/vim-airline'
 "NeoBundle 'http://github.com/bling/vim-bufferline'
 NeoBundle 'http://github.com/cazador481/perl-support.vim.git'
 NeoBundle 'http://github.com/cazador481/ea_color'
@@ -46,7 +46,7 @@ NeoBundle 'http://github.com/scrooloose/nerdcommenter'
 "NeoBundle 'http://github.com/vim-perl/vim-perl'
 NeoBundle 'http://github.com/vim-scripts/taglist.vim'
 NeoBundle 'http://github.com/SirVer/ultisnips'
-NeoBundle  'JazzCore/neocomplcache-ultisnips'
+NeoBundle  'http://github.com/JazzCore/neocomplcache-ultisnips'
 
 NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
 NeoBundle 'http://github.com/perrywky/vim-matchit'
@@ -57,7 +57,7 @@ NeoBundle 'http://github.com/Shougo/unite.vim'
 NeoBundle 'http://github.com/Shougo/neocomplcache.vim' 
 NeoBundle 'm2mdas/unite-file-vcs'
 NeoBundle 'http://github.com/kien/rainbow_parentheses.vim'
-NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'http://github.com/Shougo/vimshell.vim'
 "if has("unix") && (v:version >703 || has('patch584'))*/
 NeoBundle 'http://github.com/Shougo/vimproc', {
             \ 'build' : {
