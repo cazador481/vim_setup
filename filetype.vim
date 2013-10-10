@@ -12,4 +12,6 @@ au! BufRead,BufNewfile *.hdl setfiletype ihdl
 au! BufRead,BufNewfile *.ifc setfiletype ihdl
 au! BufRead,BufNewfile *.sig setfiletype ihdl
 au! BufRead,BufNewfile *.nfo setfiletype nfo
+au! BufRead,BufNewfile *.hdl setfiletype perl
+au! BufRead,BufNewfile *.udf setfiletype perl
 augroup END
