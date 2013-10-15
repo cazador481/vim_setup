@@ -28,36 +28,33 @@ NeoBundleFetch 'http://github.com/Shougo/neobundle'
 "Add your bundles here
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 "{{{My bundles here
-"Bundle 'http://github.com/tpope/vim-fugitive'
 NeoBundle 'http://github.com/bling/vim-airline'
-"NeoBundle 'http://github.com/bling/vim-bufferline'
 NeoBundle 'http://github.com/cazador481/perl-support.vim.git'
 NeoBundle 'http://github.com/cazador481/ea_color'
 NeoBundle 'http://github.com/cazador481/verilog_systemverilog_fix.git'
-"NeoBundle 'vim-scripts/syntax_check_embedded_perl.vim'
 NeoBundle 'http://github.com/mbadran/headlights'
 
-"NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
+      "NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
 NeoBundle 'http://github.com/cazador481/vim-systemc'
-"NeoBundle 'http://github.com/vim-scripts/a.vim.git'
-"NeoBundle 'http://github.com/ervandew/supertab'
 NeoBundle 'http://github.com/scrooloose/nerdcommenter'
-"NeoBundle 'http://github.com/fholgado/minibufexpl.vim.git'
-"NeoBundle 'http://github.com/vim-perl/vim-perl'
 NeoBundle 'http://github.com/vim-scripts/taglist.vim'
 NeoBundle 'http://github.com/SirVer/ultisnips'
-NeoBundle  'http://github.com/JazzCore/neocomplcache-ultisnips'
-
-NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
+"NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
 NeoBundle 'http://github.com/perrywky/vim-matchit'
-"NeoBundle 'http://github.com/kien/ctrlp.vim'
 NeoBundle 'http://github.com/derekwyatt/vim-protodef'
 NeoBundle 'http://github.com/vim-scripts/FSwitch'
-NeoBundle 'http://github.com/Shougo/unite.vim' 
-NeoBundle 'http://github.com/Shougo/neocomplcache.vim' 
-NeoBundle 'm2mdas/unite-file-vcs'
-NeoBundle 'http://github.com/kien/rainbow_parentheses.vim'
-NeoBundle 'http://github.com/Shougo/vimshell.vim'
+NeoBundle 'http://github.com/kana/vim-textobj-user'
+"NeoBundle 'http://github.com/Shougo/unite.vim' 
+"if has("unix") && version <704
+"    NeoBundle 'http://github.com/Shougo/neocomplcache.vim' 
+"NeoBundle  'http://github.com/JazzCore/neocomplcache-ultisnips'
+
+"endif
+
+"NeoBundle 'm2mdas/unite-file-vcs'
+"
+"NeoBundle 'http://github.com/kien/rainbow_parentheses.vim'
+"NeoBundle 'http://github.com/Shougo/vimshell.vim'
 "if has("unix") && (v:version >703 || has('patch584'))*/
 NeoBundle 'http://github.com/Shougo/vimproc', {
             \ 'build' : {
@@ -68,7 +65,8 @@ NeoBundle 'http://github.com/Shougo/vimproc', {
             \    },
             \ }
 if has("unix") && (v:version >703 || has('patch584'))
-    NeoBundle 'Valloric/YouCompleteMe' 
+    NeoBundle 'Valloric/YouCompleteMe'  , { 'build' : { 'unix' : 'cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/cpp -DPYTHON_INCLUDE_DIR=/usr/intel/pkgs/python/2.7.2/include/python2.7/ -DPYTHON_LIBRARY=/usr/intel/pkgs/python/2.7.2/lib/libpython2.7.so', } }
+
 endif
 "}}}
 "
@@ -76,7 +74,7 @@ endif
 "if iCanHazBundle == 0
 "echo "Installing Bundles, please ignore key map error messages"
 "echo ""
-if neobundle#is_installed('neocomplcache.vim')
+if neobundle#is_installed('neobundle')
 NeoBundleCheck
 endif
 set exrc
@@ -100,6 +98,7 @@ set showmatch
 set so=10
 set background=dark
 let g:load_doxygen_syntax=1
+set relativenumber
 set number
 set ic
 set diffopt+=iwhite " ignores white space
@@ -191,10 +190,13 @@ set guifontset=Inconsolata\ 16
 let g:NERDCustomDelimiters = { 'verilog_systemverilog': { 'left': '//', }, }
 "}}}
 "{{{ Rainbow Parentheses
+"NeoBundle 'http://github.com/kien/rainbow_parentheses.vim'
+if neobundle#is_installed('rainbow_parenthesis.vim')
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+endif
 "}}}
 "{{{indent_guides
 let g:indent_guides_start=1
@@ -236,10 +238,10 @@ if has("multi_byte")
 endif
 
 "{{{ unite settings
+if neobundle#is_installed('unite')
 noremap <C-p> :Unite file_rec/async<cr> "file open
 "nnoremap <leader>fc :<C-u>Unite -start-insert -no-split -buffer-name=file_vcs file/vcs<CR> 
 "VCS file mapping 
-"}}}
 command! UniteAckToggleCase :let g:unite_source_ack_ignore_case=!g:unite_source_ack_ignore_case|let g:unite_source_ack_ignore_case
 " show executed commmand
 let g:unite_source_ack_enable_print_cmd = 1
@@ -283,6 +285,8 @@ command! -nargs=1 SearchBundle :Unite ack:bundle:<args>
 command! -nargs=1 SearchGem    :Unite ack:gem:<args>
 command! -nargs=1 SearchUnite  :Unite ack:unite:<args>
 command! -nargs=1 SearchNeco   :Unite ack:neco:<args>
+endif
+"}}}
 "}}}
 let g:neocomplcache_enable_at_startup=1
 
