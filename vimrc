@@ -29,10 +29,14 @@ NeoBundleFetch 'http://github.com/Shougo/neobundle'
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 "{{{My bundles here
 NeoBundle 'http://github.com/bling/vim-airline'
-NeoBundle 'http://github.com/cazador481/perl-support.vim.git'
+NeoBundleLazy 'http://github.com/cazador481/perl-support.vim.git'
+autocmd FileType perl NeoBundleSource perl-support.vim
 NeoBundle 'http://github.com/cazador481/ea_color'
 NeoBundle 'http://github.com/cazador481/verilog_systemverilog_fix.git'
-NeoBundle 'http://github.com/mbadran/headlights'
+
+
+"should bundle menu
+"NeoBundle 'http://github.com/mbadran/headlights
 
       "NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
 NeoBundle 'http://github.com/cazador481/vim-systemc'
@@ -44,6 +48,9 @@ NeoBundle 'http://github.com/perrywky/vim-matchit'
 NeoBundle 'http://github.com/derekwyatt/vim-protodef'
 NeoBundle 'http://github.com/vim-scripts/FSwitch'
 NeoBundle 'http://github.com/kana/vim-textobj-user'
+NeoBundle 'http://github.com/bling/vim-bufferline'
+NeoBundle 'https://github.com/c9s/perlomni.vim'
+
 "NeoBundle 'http://github.com/Shougo/unite.vim' 
 "if has("unix") && version <704
 "    NeoBundle 'http://github.com/Shougo/neocomplcache.vim' 
@@ -78,8 +85,6 @@ if neobundle#is_installed('neobundle')
 NeoBundleCheck
 endif
 set exrc
-filetype plugin on
-filetype indent on
 filetype plugin indent on
 
 syntax on
@@ -290,7 +295,13 @@ endif
 "}}}
 let g:neocomplcache_enable_at_startup=1
 
+"{{{ unite settings
+if neobundle#is_installed('YouCompleteMe')
 
+    let g:ycm_collect_identifiers_from_comments_and_strings=1
+    let g:ycm_seed_identifiers_with_syntax = 0
+endif
+"}}}
 
 "{{{airline
 if neobundle#is_installed('vim-airline')
@@ -301,6 +312,7 @@ if neobundle#is_installed('vim-airline')
     let g:airline_powerline_fonts=1
     let g:airline_detect_whitespace = 1
     let g:airline#extensions#hunks#non_zero_only = 1
+    let laststatus=2
 
     let g:airline#extensions#tabline#enabled = 2
     let g:airline#extensions#tabline#fnamemod = ':t'
