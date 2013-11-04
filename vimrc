@@ -72,7 +72,8 @@ NeoBundle 'http://github.com/Shougo/vimproc', {
             \    },
             \ }
 if has("unix") && (v:version >703 || has('patch584'))
-    NeoBundle 'Valloric/YouCompleteMe'  , { 'build' : { 'unix' : 'cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/cpp -DPYTHON_INCLUDE_DIR=/usr/intel/pkgs/python/2.7.2/include/python2.7/ -DPYTHON_LIBRARY=/usr/intel/pkgs/python/2.7.2/lib/libpython2.7.so', } }
+    NeoBundle 'http://github.com/Valloric/YouCompleteMe' {'type:' : 'nosync'}
+   "   , { 'build' : { 'unix' : 'cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/cpp -DPYTHON_INCLUDE_DIR=/usr/intel/pkgs/python/2.7.2/include/python2.7/ -DPYTHON_LIBRARY=/usr/intel/pkgs/python/2.7.2/lib/libpython2.7.so;make', } }
 
 endif
 "}}}
@@ -232,12 +233,10 @@ if has("multi_byte")
             let &termencoding = &encoding
         endif
         if !has('gui_running')
-            "set t_Co = 256 "set 256 colors*/
+            set t_Co = 256 "set 256 colors*/
         endif
         set encoding=utf-8
         setglobal fileencoding=utf-8
-        setglobal bomb
-        set fileencodings=ucs-bom,utf-8,latin1
         set ambiwidth=double
     endif
 endif
@@ -417,6 +416,9 @@ endif
 "quick saving {{{
 nmap <silent> <Leader>w :update<CR>
 "}}}
+"{{{ arrow key to buffer map
+map <C-LEFT> :bp<CR>
+map <C-RIGHT> :bn<CR>
 " vim: set fdm=marker:
 
 
