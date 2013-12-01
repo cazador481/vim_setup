@@ -82,6 +82,46 @@ while ($1) begin
 end
 endsnippet
 
+snippet c_ovm_test "class to extends ovm_test"
+class $1 extends ovm_test;
+	function new(string name,ovm_component parent);
+		super.new(name,parent);
+	endfunction
+
+	function void build();
+		super.build();
+	endfunction: build
+endclass: $1
+endsnippet
+
+snippet o_env "ovm env class"
+class ${1:class_name} extends ovm_env;
+    \`ovm_component_utils($1)
+    
+    function new(string name, uvm_component parent);
+        super.new(name.parent);
+    endfunction: new
+
+    function void build;
+        super.build_phase();
+    endfunction : build
+
+	virtual function void connect;
+	endfunction: connect
+
+    task run;
+
+    endtask: run
+
+    $2
+endclass: $1
+endsnippet
+
+
+
+######################################
+#    UVM
+######################################
 
 snippet build_phase "uvm build phase"
 function void build_phase(uvm_phase phase);
@@ -145,7 +185,7 @@ ${2://declare env here} $2_h;
 endclass: $1
 endsnippet
 
-snippet craete "uvmtest create"
+snippet create "uvmtest create"
 ${1type} ${2var};
 $2=$1::type_id::craete("$2");
 ${3://modify sequence here if need be}
@@ -220,3 +260,5 @@ class ${1:monitor_name} extends uvm_monitor;
       endforever
    endtask;
 endsnippet
+
+

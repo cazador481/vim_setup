@@ -1,4 +1,5 @@
 set nocompatible
+
 filetype off "pathogen needs to run before plugin indent on
 "{{{autoinstall neobundle
 
@@ -47,6 +48,7 @@ NeoBundle 'http://github.com/vim-scripts/taglist.vim'
 NeoBundle 'http://github.com/SirVer/ultisnips'
 "NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
 NeoBundle 'http://github.com/perrywky/vim-matchit'
+NeoBundle 'http://github.com/kurkale6ka/vim-pairs'
 NeoBundle 'http://github.com/derekwyatt/vim-protodef'
 NeoBundle 'http://github.com/vim-scripts/FSwitch'
 NeoBundle 'http://github.com/kana/vim-textobj-user'
@@ -96,7 +98,6 @@ syntax on
 "set t_AB=^[[48;5;%dm
 "set t_AF=^[[38;5;%dm
 color ea
-set autochdir
 set visualbell
 set tags=tags;
 set nocompatible
@@ -146,6 +147,9 @@ map <C-l> <C-W>l<C-W>_
 map <S-Enter> O<ESC>
 map <Enter> o<Esc>
 "folding {{{
+"maps space to page down
+map <SPACE> <C-D> 
+
 set foldenable
 set foldmethod=syntax
 set wildmenu
@@ -198,6 +202,8 @@ if neobundle#is_installed('ultisnips')
         return ""
     endfunction
 
+    
+    "inoremap <tab>=g:UltiSnips_Complete()
     au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
     let g:UltiSnipsJumpForwardTrigger="<tab>"
 endif
@@ -334,6 +340,7 @@ if neobundle#is_installed('YouCompleteMe') "{{{
     let g:ycm_add_preview_to_completeopt = 1
     let g:ycm_server_user_vim_stdout=1
     let g:ycm_server_log_level='debug'
+    let g:ycm_key_list_select_completion=['<Down>']
 endif
 "}}}
 "{{{airline
