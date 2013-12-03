@@ -66,13 +66,15 @@ endsnippet
 
 snippet function "function"
 function ${1void} ${2:func_name}();
-  $3;
+	$3;
 endfunction : $2;
 endsnippet
 
 snippet package "package"
 package ${1:package_name};
-   $2;
+	import ovm_pkg::*;
+	\`include "ovm_macros.svh"
+    ${2://include package contents here}
 endpackage: $1
 endsnippet
 
@@ -99,11 +101,11 @@ class ${1:class_name} extends ovm_env;
     \`ovm_component_utils($1)
     
     function new(string name, uvm_component parent);
-        super.new(name.parent);
+        super.new(name,parent);
     endfunction: new
 
     function void build;
-        super.build_phase();
+        super.build();
     endfunction : build
 
 	virtual function void connect;
