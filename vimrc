@@ -401,6 +401,8 @@ endif
 "quick saving {{{
 nmap <silent> <Leader>w :update<CR>
 "}}}
+IndentGuidesDisable
+
 " vim: set fdm=marker:
 
 
