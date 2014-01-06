@@ -31,31 +31,36 @@ NeoBundleFetch 'http://github.com/Shougo/neobundle'
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 "{{{My bundles here
 NeoBundle 'http://github.com/bling/vim-airline'
+NeoBundle 'http://github.com/cazador481/ea_color'
 NeoBundleLazy 'http://github.com/cazador481/perl-support.vim.git'
 autocmd FileType perl NeoBundleSource perl-support.vim
-NeoBundle 'http://github.com/cazador481/ea_color'
+NeoBundleLazy 'https://github.com/c9s/perlomni.vim'
+autocmd FileType perl NeoBundleSource perlomni.vim
+      "NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
 NeoBundle 'http://github.com/cazador481/verilog_systemverilog_fix.git'
 NeoBundle 'http://github.com/tpope/vim-fugitive'
 NeoBundle 'http://github.com/tpope/vim-surround'
-
+NeoBundle 'embear/vim-foldsearch'
 "should bundle menu
 "NeoBundle 'http://github.com/mbadran/headlights
 
-      "NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
 NeoBundle 'http://github.com/cazador481/vim-nfo'
 NeoBundle 'http://github.com/cazador481/vim-systemc'
-NeoBundle 'http://github.com/scrooloose/nerdcommenter'
+"NeoBundle 'http://github.com/scrooloose/nerdcommenter'
+NeoBundle 'http://github.com/tpope/vim-commentary'
+NeoBundle 'http://github.com/tpope/vim-repeat'
 NeoBundle 'http://github.com/vim-scripts/taglist.vim'
 NeoBundle 'http://github.com/SirVer/ultisnips'
 "NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
 NeoBundle 'http://github.com/perrywky/vim-matchit'
 NeoBundle 'http://github.com/kurkale6ka/vim-pairs'
-NeoBundle 'http://github.com/derekwyatt/vim-protodef'
+NeoBundleLazy 'http://github.com/derekwyatt/vim-protodef'
+autocmd FileType cpp NeoBundleSource vim-protodef
 NeoBundle 'http://github.com/vim-scripts/FSwitch'
 NeoBundle 'http://github.com/kana/vim-textobj-user'
 "NeoBundle 'http://github.com/bling/vim-bufferline'
-NeoBundle 'https://github.com/c9s/perlomni.vim'
 NeoBundle 'http://github.com/kien/ctrlp.vim'
+NeoBundle 'http://github.com/xolox/vim-reload', {'depends' : 'xolox/vim-misc' }
 "NeoBundle 'http://github.com/Shougo/unite.vim' 
 "if has("unix") && version <704
 "    NeoBundle 'http://github.com/Shougo/neocomplcache.vim' 
@@ -123,6 +128,17 @@ set shiftwidth=4
 set expandtab
 set cindent
 "}}}
+func! s:etwd() "{{{ sets path to .git
+    let cph = expand('%:p:h', 1)
+    if match(cph, '\v^<.+>://') >= 0 | retu | en
+    for mkr in ['.git/', '.hg/', '.vimprojects']
+        let wd = call('find'.(mkr =~ '/$' ? 'dir' : 'file'), [mkr, cph.';'])
+        if wd != '' | let &acd = 0 | brea | en
+    endfo
+    exe 'lc!' fnameescape(wd == '' ? cph : substitute(wd, mkr.'$', '.', ''))
+endfunc
+
+au BufEnter * cal s:etwd()
 "{{{autochdir
 "if exists('+autochdir')
 "set autochdir
@@ -130,7 +146,6 @@ set cindent
 "autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
 "endif
 "}}}
-let g:EnhCommentifyUseAltKeys='yes'
 "{{{Tlist
 
 nnoremap <silent> <F8> :Tlist<CR>
@@ -182,31 +197,34 @@ endif
 "map <C-c> <M-c> 
 "}}}
 "{{{UltiSnips
-if neobundle#is_installed('ultisnips')
-    let g:UltiSnipSnippetsDir="~/.vim/UltiSnips"
-    "let g:UltiSnipsExpandTrigger="<tab>"
-    "let g:UltiSnipsJumpForwardTrigger="<tab>"
-    "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-    let g:UltiSnipsEditSplit ="vertical"
-    function! g:UltiSnips_Complete()
-        call UltiSnips_ExpandSnippet()
-        if g:ulti_expand_res == 0
-            if pumvisible()
-                return "\<C-n>"
-            else
-                call UltiSnips_JumpForwards()
-                if g:ulti_jump_forwards_res == 0
-                    return "\<TAB>"
-                endif
-            endif
-        endif
-        return ""
-    endfunction
+ if neobundle#is_installed('ultisnips')
+     let g:UltiSnipSnippetsDir="~/.vim/UltiSnips"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"let g:UltiSnipsExpandTrigger="<tab>"
+"     "let g:UltiSnipsJumpForwardTrigger="<tab>"
+"     "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+"     let g:UltiSnipsEditSplit ="vertical"
+"     function! g:UltiSnips_Complete()
+"         call UltiSnips_ExpandSnippet()
+"         if g:ulti_expand_res == 0
+"             if pumvisible()
+"                 return "\<C-n>"
+"             else
+"                 call UltiSnips_JumpForwards()
+"                 if g:ulti_jump_forwards_res == 0
+"                     return "\<TAB>"
+"                 endif
+"             endif
+"         endif
+"         return ""
+"     endfunction
 
     
     "inoremap <tab>=g:UltiSnips_Complete()
-    au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    " au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+"    let g:UltiSnipsJumpForwardTrigger="<leader>j"
 endif
 "}}}
 "perl-support {{{
@@ -341,7 +359,6 @@ if neobundle#is_installed('YouCompleteMe') "{{{
     let g:ycm_add_preview_to_completeopt = 1
     let g:ycm_server_user_vim_stdout=1
     let g:ycm_server_log_level='debug'
-    let g:ycm_key_list_select_completion=['<Down>']
 endif
 "}}}
 "{{{airline
@@ -356,7 +373,7 @@ if neobundle#is_installed('vim-airline')
 
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#buffer_nr_show=1
-
+    let g:airline#extensions#tabline#formatter = 'unique_tail'
     "        let g:airline#extension#bufferline#eabled=1
     "        let g:airline#extension#branch#enabled=1
 "if !exists('g:airline_symbols')

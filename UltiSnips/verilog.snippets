@@ -18,13 +18,33 @@ $1
 end
 endsnippet
 
+snippet new "new call"
+$1=new("$1",this);
+endsnippet
 
+snippet if "if"
+if ($1) begin
+	${VISUAL}
+end
+endsnippet
 snippet ife "Conditional if..else (ife)"
 if ($1) 
 	${2:// body...}
-else 
+end else begin
 	${3:// else...}
+end
 endsnippet
+
+snippet elif "else if block"
+else if ($1) begin
+	$2
+end
+endsnippet
+
+snippet else "else block"
+else begin
+	$1
+end
 
 snippet module "module"
 module ${1:module_name};
@@ -45,14 +65,14 @@ endclocking : $1
 endsnippet
 
 snippet task "task"
-task ${1:task_name}();
-   $2
+task ${1:task_name}($2);
+   $3
 endtask : $1
 endsnippet
 
-snippet foreach "foreach"
-foreach my $1 ($2) begin
-   $3
+snippet for "for"
+for ($1; $2; $3) begin
+   $4
 end
 endsnippet
 
@@ -65,8 +85,8 @@ endclass: $1
 endsnippet
 
 snippet function "function"
-function ${1void} ${2:func_name}();
-	$3;
+function ${1:void} ${2:func_name}();
+	$3
 endfunction : $2;
 endsnippet
 
@@ -83,8 +103,29 @@ while ($1) begin
    ${2://statement}
 end
 endsnippet
+#####
 
-snippet c_ovm_test "class to extends ovm_test"
+snippet tlm_block_imp "blocking implementation"
+
+    virtual function bit try_put(${1:trans_type} t);
+    endfunction: try_put
+	
+   virtual function bit can_put();
+   endfunction: can_put 
+
+   virtual function bit try_get($1 t);
+   endfunction: try_get
+
+   virtual function bit can_get();
+   endfunction: can_get
+
+   virtual function bit try_peek($1 t);
+   endfunction: try_peek
+
+   virtual function bit can_peek($1 t);
+   endfunction: can_peek
+endsnippet
+snippet ovm_test "class to extends ovm_test"
 class $1 extends ovm_test;
 	function new(string name,ovm_component parent);
 		super.new(name,parent);
@@ -96,7 +137,47 @@ class $1 extends ovm_test;
 endclass: $1
 endsnippet
 
-snippet o_env "ovm env class"
+
+snippet ovm_component "ovm agent  class"
+class ${1:agent name} extends ovm_component;
+   \`ovm_component_utils($1)
+   
+   function new(string name, ovm_component parent );
+      super.new(name,parent);
+   endfunction: new
+
+   function void build(); //create child componenets
+      super.build();
+      //instanciate lower level components here
+      // my_sequencer::type_id::create("my_sequence_h", this);
+   endfunction: build
+
+   function void connect(); // connect child components
+   endfunction: connect
+endclass: $1
+endsnippet
+
+snippet ovm_agent "ovm agent  class"
+class ${1:agent name} extends ovm_agent;
+   \`ovm_component_utils($1)
+   
+   function new(string name, ovm_component parent );
+      super.new(name,parent);
+   endfunction: new
+
+   function void build(); //create child componenets
+      super.build();
+      //instanciate lower level components here
+      // my_sequencer::type_id::create("my_sequence_h", this);
+   endfunction: build
+
+   function void connect(); // connect child components
+   endfunction: connect
+endclass: $1
+endsnippet
+
+
+snippet ovm_env "ovm env class"
 class ${1:class_name} extends ovm_env;
     \`ovm_component_utils($1)
     
