@@ -483,7 +483,11 @@ nmap <silent> <Leader>w :update<CR>
 "{{{ arrow key to buffer map
 map <C-LEFT> :bp<CR>
 map <C-RIGHT> :bn<CR>
+"}}}
+"{{{ middle mouse map
+map <S-Insert> <MiddleMouse>
+map! <S-Insert> <MiddleMouse>
+map <C-S-Insert> <MiddleMouse>
+map! <C-S-Insert> <MiddleMouse>
+
 " vim: set fdm=marker:
-
-
-
