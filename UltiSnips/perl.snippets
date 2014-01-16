@@ -7,9 +7,15 @@ has $1 => (
 );
 endsnippet
 
+snippet method "sub method"
+sub $1 
+{
+	${2:${VISUAL}}
+}
+endsnippet
 snippet sub "subroutine"
 sub $1 
 {
-	$2
+	${2:${VISUAL}}
 }
 endsnippet

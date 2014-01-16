@@ -1,5 +1,6 @@
 set nocompatible
 
+
 filetype off "pathogen needs to run before plugin indent on
 "{{{autoinstall neobundle
 
@@ -35,6 +36,7 @@ NeoBundleLazy 'http://github.com/cazador481/perl-support.vim.git'
 autocmd FileType perl NeoBundleSource perl-support.vim
 NeoBundleLazy 'https://github.com/c9s/perlomni.vim'
 autocmd FileType perl NeoBundleSource perlomni.vim
+NeoBundle 'vim-script/perlprove.vim'
       "NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
 NeoBundle 'http://github.com/cazador481/verilog_systemverilog_fix.git'
 NeoBundle 'http://github.com/tpope/vim-fugitive'
@@ -481,6 +483,8 @@ endif
 "quick saving {{{
 nmap <silent> <Leader>w :update<CR>
 "}}}
+"IndentGuidesDisable
+
 "{{{ arrow key to buffer map
 map <C-LEFT> :bp<CR>
 map <C-RIGHT> :bn<CR>
