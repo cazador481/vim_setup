@@ -39,6 +39,7 @@ autocmd FileType perl NeoBundleSource perlomni.vim
 NeoBundle 'http://github.com/cazador481/verilog_systemverilog_fix.git'
 NeoBundle 'http://github.com/tpope/vim-fugitive'
 NeoBundle 'http://github.com/tpope/vim-surround'
+NeoBundle 'http://github.com/tpope/vim-dispatch'
 NeoBundle 'embear/vim-foldsearch'
 "should bundle menu
 "NeoBundle 'http://github.com/mbadran/headlights
@@ -489,5 +490,7 @@ map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 map <C-S-Insert> <MiddleMouse>
 map! <C-S-Insert> <MiddleMouse>
+"}}}
 
+set suffixesadd+=.gz
 " vim: set fdm=marker:
