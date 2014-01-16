@@ -36,6 +36,7 @@ NeoBundleLazy 'http://github.com/cazador481/perl-support.vim.git'
 autocmd FileType perl NeoBundleSource perl-support.vim
 NeoBundleLazy 'https://github.com/c9s/perlomni.vim'
 autocmd FileType perl NeoBundleSource perlomni.vim
+NeoBundle 'vim-script/perlprove.vim'
       "NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
 NeoBundle 'http://github.com/cazador481/verilog_systemverilog_fix.git'
 NeoBundle 'http://github.com/tpope/vim-fugitive'
