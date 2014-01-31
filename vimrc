@@ -31,13 +31,15 @@ NeoBundleFetch 'http://github.com/Shougo/neobundle'
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 "{{{My bundles here
 NeoBundle 'http://github.com/bling/vim-airline'
+NeoBundle 'godlygeek/tabular'
 NeoBundle 'http://github.com/cazador481/ea_color'
+NeoBundle 'tpope/vim-vividchalk'
 NeoBundleLazy 'http://github.com/cazador481/perl-support.vim.git'
 autocmd FileType perl NeoBundleSource perl-support.vim
 NeoBundleLazy 'https://github.com/c9s/perlomni.vim'
 autocmd FileType perl NeoBundleSource perlomni.vim
       "NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
-NeoBundle 'http://github.com/cazador481/verilog_systemverilog_fix.git'
+NeoBundle 'http://github.com/cazador481/vim-systemverilog'
 NeoBundle 'http://github.com/tpope/vim-fugitive'
 NeoBundle 'http://github.com/tpope/vim-surround'
 NeoBundle 'http://github.com/tpope/vim-dispatch'
@@ -48,8 +50,9 @@ NeoBundle 'embear/vim-foldsearch'
 NeoBundle 'http://github.com/cazador481/vim-nfo'
 NeoBundle 'http://github.com/cazador481/vim-systemc'
 "NeoBundle 'http://github.com/scrooloose/nerdcommenter'
-NeoBundle 'http://github.com/tpope/vim-commentary'
+"NeoBundle 'http://github.com/tpope/vim-commentary'
 NeoBundle 'http://github.com/tpope/vim-repeat'
+NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'http://github.com/vim-scripts/perlprove.vim'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'http://github.com/vim-scripts/taglist.vim'
@@ -83,7 +86,7 @@ NeoBundle 'http://github.com/Shougo/vimproc', {
             \     'unix' : 'make -f make_unix.mak',
             \    }, }
 if has("unix") && (v:version >703 || has('patch584'))
-    NeoBundle 'http://github.com/Valloric/YouCompleteMe', {
+    NeoBundle 'Valloric/YouCompleteMe', {
                 \'type:' : 'nosync', 
                 \ 'disabled' :!has('unix'),
                 \ 'vim_version' : '7.3.584'
@@ -106,7 +109,7 @@ filetype plugin indent on
 syntax on
 "set t_AB=^[[48;5;%dm
 "set t_AF=^[[38;5;%dm
-color ea
+color vividchalk
 set visualbell
 set tags=tags;
 set nocompatible
@@ -155,12 +158,6 @@ nnoremap <silent> <F8> :Tlist<CR>
 let tlist_perl_settings='perl;u:use;p:package;r:role;e:extends;c:constant;a:attribute;s:subroutine'
 let Tlist_Show_One_File = 1
 "}}}
-"{{{window map change
-map <C-J> <C-w>j<C-W>_
-map <C-K> <C-W>k<C-W>_
-map <C-H> <C-W>h<C-W>_
-map <C-l> <C-W>l<C-W>_
-"}}}
 "let g:miniBufExplModSelTarget = 1
 "let g:miniBufExplForceSyntaxEnable=1
 map <S-Enter> O<ESC>
@@ -202,8 +199,8 @@ endif
 "{{{UltiSnips
  if neobundle#is_installed('ultisnips')
      let g:UltiSnipSnippetsDir="~/.vim/UltiSnips"
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsExpandTrigger="<c-f>"
+let g:UltiSnipsJumpForwardTrigger="<c-f>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 "let g:UltiSnipsExpandTrigger="<tab>"
 "     "let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -236,10 +233,10 @@ let g:Perl_GlobalTemplateFile=$HOME.'/.vim/bundle/perl-support.vim/perl-support/
 let g:Perl_TemplateOverriddenMsg='yes'
 "}}}
 "{{{make Control-direction switch between windows
-nmap <silent> <C-k> <C-w><C-k>
-nmap <silent> <C-k> <C-w><C-j>
-nmap <silent> <C-k> <C-w><C-h>
-nmap <silent> <C-k> <C-w><C-l>
+" nmap <silent> <C-k> <C-w><C-k>
+" nmap <silent> <C-k> <C-w><C-j>
+" nmap <silent> <C-k> <C-w><C-h>
+" nmap <silent> <C-k> <C-w><C-l>
 "}}}
 
 set guifontset=Inconsolata\ 16 
