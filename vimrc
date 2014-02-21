@@ -173,10 +173,11 @@ set wildmode=list:longest,full
 set mouse=a "enables mouse mode in console
 "}}}
 "Get completion to work sanely {{{
-inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
+"inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 inoremap <expr> <c-n> pumvisible() ? "\<lt>c-n>" : "\<lt>c-n>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
 inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>" 
-set completeopt=longest,menuone
+ set completeopt=longest
+" set completeopt=longest,menuone
 "}}}
 "{{{ temp directory
 if has("unix")
@@ -359,6 +360,7 @@ if neobundle#is_installed('YouCompleteMe') "{{{
     let g:ycm_add_preview_to_completeopt = 1
     let g:ycm_server_user_vim_stdout=1
     let g:ycm_server_log_level='debug'
+    let g:ycm_key_list_select_completion=['<TAB>']
 endif
 "}}}
 "{{{airline
@@ -437,7 +439,7 @@ if neobundle#is_installed('neocomplcache.vim')
     inoremap <expr><C-y>  neocomplcache#close_popup()
     inoremap <expr><C-e>  neocomplcache#cancel_popup()
     " Close popup by <Space>.
-    "inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
+    inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
 
     " For cursor moving in insert mode(Not recommended)
     "inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
@@ -495,4 +497,6 @@ map! <C-S-Insert> <MiddleMouse>
 "}}}
 
 set suffixesadd+=.gz
+
+au FileType verilog_systemverilog compiler quick_build
 " vim: set fdm=marker:
