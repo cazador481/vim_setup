@@ -28,17 +28,10 @@ call neobundle#rc()
 "}}}
 NeoBundleFetch 'http://github.com/Shougo/neobundle'
 "Add your bundles here
-"    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
-"{{{My bundles here
+"{{{General bundles here
+NeoBundle 'Syntastic' "uber awesome syntax and errors highlighter
 NeoBundle 'http://github.com/bling/vim-airline'
 NeoBundle 'godlygeek/tabular'
-NeoBundle 'http://github.com/cazador481/ea_color'
-NeoBundle 'tpope/vim-vividchalk'
-NeoBundleLazy 'http://github.com/cazador481/perl-support.vim.git'
-autocmd FileType perl NeoBundleSource perl-support.vim
-NeoBundleLazy 'https://github.com/c9s/perlomni.vim'
-autocmd FileType perl NeoBundleSource perlomni.vim
-      "NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
 NeoBundle 'http://github.com/cazador481/vim-systemverilog'
 NeoBundle 'http://github.com/tpope/vim-fugitive'
 NeoBundle 'http://github.com/tpope/vim-surround'
@@ -53,7 +46,6 @@ NeoBundle 'http://github.com/cazador481/vim-systemc'
 "NeoBundle 'http://github.com/tpope/vim-commentary'
 NeoBundle 'http://github.com/tpope/vim-repeat'
 NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'http://github.com/vim-scripts/perlprove.vim'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'http://github.com/vim-scripts/taglist.vim'
 NeoBundle 'http://github.com/SirVer/ultisnips'
@@ -67,16 +59,17 @@ NeoBundle 'http://github.com/kana/vim-textobj-user'
 "NeoBundle 'http://github.com/bling/vim-bufferline'
 NeoBundle 'http://github.com/kien/ctrlp.vim'
 NeoBundle 'http://github.com/xolox/vim-reload', {'depends' : 'xolox/vim-misc' }
+NeoBundle 'mattn/gist-vim', {'depends' : 'mattn/webapi-vim' }
 "NeoBundle 'http://github.com/Shougo/unite.vim' 
-"if has("unix") && version <704
-"    NeoBundle 'http://github.com/Shougo/neocomplcache.vim' 
-"NeoBundle  'http://github.com/JazzCore/neocomplcache-ultisnips'
+if has("unix") && version <704
+    NeoBundle 'http://github.com/Shougo/neocomplcache.vim' 
+    NeoBundle  'http://github.com/JazzCore/neocomplcache-ultisnips'
 
-"endif
+endif
 
 "NeoBundle 'm2mdas/unite-file-vcs'
 "
-"NeoBundle 'http://github.com/kien/rainbow_parentheses.vim'
+NeoBundle 'http://github.com/kien/rainbow_parentheses.vim'
 "NeoBundle 'http://github.com/Shougo/vimshell.vim'
 NeoBundle 'http://github.com/Shougo/vimproc', {
             \ 'build' : {
@@ -97,9 +90,18 @@ endif
 "}}}
 "
 "
-"if iCanHazBundle == 0
-"echo "Installing Bundles, please ignore key map error messages"
-"echo ""
+"{{{perl bundles
+NeoBundleLazy 'http://github.com/cazador481/perl-support.vim.git'
+autocmd FileType perl NeoBundleSource perl-support.vim
+NeoBundleLazy 'https://github.com/c9s/perlomni.vim'
+autocmd FileType perl NeoBundleSource perlomni.vim
+"NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
+NeoBundle 'http://github.com/vim-scripts/perlprove.vim'
+"}}}
+"{{{color schemes
+NeoBundle 'http://github.com/cazador481/ea_color'
+NeoBundle 'tpope/vim-vividchalk'
+"}}}
 if neobundle#is_installed('neobundle')
 NeoBundleCheck
 endif
