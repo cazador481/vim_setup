@@ -1,2 +1,2 @@
 set nocursorline
-set guifont=Inconsolata\ 16 
+" set guifont=Inconsolata\ 16 

@@ -1,6 +1,4 @@
 set nocompatible
-
-
 filetype off "pathogen needs to run before plugin indent on
 "{{{autoinstall neobundle
 
@@ -29,10 +27,12 @@ call neobundle#rc()
 NeoBundleFetch 'http://github.com/Shougo/neobundle'
 "Add your bundles here
 "{{{General bundles here
-NeoBundle 'Syntastic' "uber awesome syntax and errors highlighter
-NeoBundle 'http://github.com/bling/vim-airline'
+" NeoBundle 'syntastic' "uber awesome syntax and errors highlighter
+
+" NeoBundle 'http://github.com/bling/vim-airline'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'http://github.com/cazador481/vim-systemverilog'
+NeoBundle 'http://github.com/tpope/vim-eunuch' "file modification commands, like Unlink, Move
 NeoBundle 'http://github.com/tpope/vim-fugitive'
 NeoBundle 'http://github.com/tpope/vim-surround'
 NeoBundle 'http://github.com/tpope/vim-dispatch'
@@ -40,13 +40,18 @@ NeoBundle 'embear/vim-foldsearch'
 "should bundle menu
 "NeoBundle 'http://github.com/mbadran/headlights
 
+"{{{new Filetypes
 NeoBundle 'http://github.com/cazador481/vim-nfo'
 NeoBundle 'http://github.com/cazador481/vim-systemc'
-"NeoBundle 'http://github.com/scrooloose/nerdcommenter'
-"NeoBundle 'http://github.com/tpope/vim-commentary'
+"}}}
 NeoBundle 'http://github.com/tpope/vim-repeat'
 NeoBundle 'tomtom/tcomment_vim'
+"{{{ TMUX
+"TODO check for TMUX env set to enable
 NeoBundle 'christoomey/vim-tmux-navigator'
+" NeoBundle 'wellle/tmux-complete.vim'
+"}}}
+
 NeoBundle 'http://github.com/vim-scripts/taglist.vim'
 NeoBundle 'http://github.com/SirVer/ultisnips'
 "NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
@@ -57,20 +62,17 @@ autocmd FileType cpp NeoBundleSource vim-protodef
 NeoBundle 'http://github.com/vim-scripts/FSwitch'
 NeoBundle 'http://github.com/kana/vim-textobj-user'
 "NeoBundle 'http://github.com/bling/vim-bufferline'
-NeoBundle 'http://github.com/kien/ctrlp.vim'
+" NeoBundle 'http://github.com/kien/ctrlp.vim'
 NeoBundle 'http://github.com/xolox/vim-reload', {'depends' : 'xolox/vim-misc' }
 NeoBundle 'mattn/gist-vim', {'depends' : 'mattn/webapi-vim' }
-"NeoBundle 'http://github.com/Shougo/unite.vim' 
-if has("unix") && version <704
-    NeoBundle 'http://github.com/Shougo/neocomplcache.vim' 
-    NeoBundle  'http://github.com/JazzCore/neocomplcache-ultisnips'
+NeoBundle 'http://github.com/Shougo/unite.vim' 
+NeoBundle 'Shougo/neocomplete.vim'
 
-endif
+NeoBundle 'vim-scripts/dbext.vim'
 
-"NeoBundle 'm2mdas/unite-file-vcs'
+
 "
 NeoBundle 'http://github.com/kien/rainbow_parentheses.vim'
-"NeoBundle 'http://github.com/Shougo/vimshell.vim'
 NeoBundle 'http://github.com/Shougo/vimproc', {
             \ 'build' : {
             \     'windows' : 'make -f make_mingw32.mak',
@@ -78,40 +80,45 @@ NeoBundle 'http://github.com/Shougo/vimproc', {
             \     'mac' : 'make -f make_mac.mak',
             \     'unix' : 'make -f make_unix.mak',
             \    }, }
-if has("unix") && (v:version >703 || has('patch584'))
-    NeoBundle 'Valloric/YouCompleteMe', {
-                \'type:' : 'nosync', 
-                \ 'disabled' :!has('unix'),
-                \ 'vim_version' : '7.3.584'
-                \}
-endif
+" if has("unix") && (v:version >703 || has('patch584'))
+"     NeoBundle 'Valloric/YouCompleteMe', {
+"                 \'type:' : 'nosync', 
+"                 \ 'disabled' :!has('unix'),
+"                 \ 'vim_version' : '7.3.584'
+"                 \}
+" endif
    ""   , { 'build' : { 'unix' : 'cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/cpp -DPYTHON_INCLUDE_DIR=/usr/intel/pkgs/python/2.7.2/include/python2.7/ -DPYTHON_LIBRARY=/usr/intel/pkgs/python/2.7.2/lib/libpython2.7.so;make', } }
 
 "}}}
 "
 "
 "{{{perl bundles
-NeoBundleLazy 'http://github.com/cazador481/perl-support.vim.git'
-autocmd FileType perl NeoBundleSource perl-support.vim
+" NeoBundle 'vim-scripts/perl-support.vim'
+NeoBundle 'vim-perl/vim-perl'
+" autocmd FileType perl NeoBundleSource perl-support.vim
 NeoBundleLazy 'https://github.com/c9s/perlomni.vim'
 autocmd FileType perl NeoBundleSource perlomni.vim
 "NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
 NeoBundle 'http://github.com/vim-scripts/perlprove.vim'
 "}}}
+
 "{{{color schemes
 NeoBundle 'http://github.com/cazador481/ea_color'
 NeoBundle 'tpope/vim-vividchalk'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
+NeoBundle 'godlygeek/csapprox'
+" NeoBundle 'w0ng/vim-hybrid'
 "}}}
+"
 if neobundle#is_installed('neobundle')
-NeoBundleCheck
+    call neobundle#end()
+    NeoBundleCheck
 endif
 set exrc
 filetype plugin indent on
 
 syntax on
-"set t_AB=^[[48;5;%dm
-"set t_AF=^[[38;5;%dm
-color vividchalk
+color ea
 set visualbell
 set tags=tags;
 set nocompatible
@@ -124,17 +131,18 @@ set showmatch
 set so=10
 set background=dark
 let g:load_doxygen_syntax=1
-set relativenumber
 set number
 set ic
 set diffopt+=iwhite " ignores white space
 set diffopt+=icase " ignores case
 set laststatus=2
+set suffixesadd+=.gz
 "{{{indent
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set expandtab
-set cindent
+" set cindent
 "}}}
 func! s:etwd() "{{{ sets path to .git
     let cph = expand('%:p:h', 1)
@@ -144,7 +152,9 @@ func! s:etwd() "{{{ sets path to .git
         if wd != '' | let &acd = 0 | brea | en
     endfo
     exe 'lc!' fnameescape(wd == '' ? cph : substitute(wd, mkr.'$', '.', ''))
-endfunc
+endfunc "}}}
+
+
 
 au BufEnter * cal s:etwd()
 "{{{autochdir
@@ -160,8 +170,6 @@ nnoremap <silent> <F8> :Tlist<CR>
 let tlist_perl_settings='perl;u:use;p:package;r:role;e:extends;c:constant;a:attribute;s:subroutine'
 let Tlist_Show_One_File = 1
 "}}}
-"let g:miniBufExplModSelTarget = 1
-"let g:miniBufExplForceSyntaxEnable=1
 map <S-Enter> O<ESC>
 map <Enter> o<Esc>
 "folding {{{
@@ -231,9 +239,11 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 endif
 "}}}
 "perl-support {{{
+let perl_fold=1
 let g:Perl_GlobalTemplateFile=$HOME.'/.vim/bundle/perl-support.vim/perl-support/templates/Templates'
 
 let g:Perl_TemplateOverriddenMsg='yes'
+let g:Perl_DirectRun='yes'
 "}}}
 "{{{make Control-direction switch between windows
 " nmap <silent> <C-k> <C-w><C-k>
@@ -242,14 +252,10 @@ let g:Perl_TemplateOverriddenMsg='yes'
 " nmap <silent> <C-k> <C-w><C-l>
 "}}}
 
-set guifontset=Inconsolata\ 16 
-"set guifont=MyFont\ for\ Powerline
 "{{{ Nerd Commenter
 let g:NERDCustomDelimiters = { 'verilog_systemverilog': { 'left': '//', }, }
 "}}}
-"{{{ Rainbow Parentheses
-"NeoBundle 'http://github.com/kien/rainbow_parentheses.vim'
-if neobundle#is_installed('rainbow_parenthesis.vim')
+if neobundle#is_installed('rainbow_parenthesis.vim') "{{{
     au VimEnter * RainbowParenthesesToggle
     au Syntax * RainbowParenthesesLoadRound
     au Syntax * RainbowParenthesesLoadSquare
@@ -279,37 +285,41 @@ perl is_hd
     endif
 endfunction "}}}
 
-if has("multi_byte")  
+if has("multi_byte")  "{{{ 
     "if Is_hd()
         if &termencoding == ""
             let &termencoding = &encoding
         endif
         if !has('gui_running')
-                    "set t_Co = 256 "set 256 colors*/
+                    " set t_Co=256
+                    "set 256 colors*/
         endif
         set encoding=utf-8
         setglobal fileencoding=utf-8
        " set ambiwidth=double
         
     "endif
-endif
+endif "}}}
 
-if neobundle#is_installed('ctrlp.vim')
-    let g:ctrlp_user_command={
-                \ 'types': {
-                \ 1: ['git', 'cd %s && git ls-files'],
-                \ },
-                \ 'fallback': 'find %s -type f'
-                \}
-endif
-"{{{ unite settings
-if neobundle#is_installed('unite')
-    noremap <C-p> :Unite file_rec/async<cr> "file open
+if neobundle#is_installed('ctrlp.vim') "{{{
+"     let g:ctrlp_user_command={
+"                 \ 'types': {
+"                 \ 1: ['git', 'cd %s && git ls-files'],
+"                 \ },
+"                 \ 'fallback': 'find %s -type f'
+"                 \}
+    let g:ctrp_root_markers=['.crucible', 'TOT']
+endif "}}}
+if neobundle#is_installed('unite.vim') "{{{
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    noremap <C-p> :execute 'Unite -start-insert file_rec/async:'.unite#util#path2project_directory(findfile("TOT",getcwd().";"))<cr> 
+    noremap <leader>b :Unite -start-insert buffer <cr>
+    let g:unite_source_grep_command = 'ag'
+    let g_unite_source_file_rec_max_cache_files=0
+    call unite#custom#source('file_rec,file_rec/async','max_candidates',0)
     "nnoremap <leader>fc :<C-u>Unite -start-insert -no-split -buffer-name=file_vcs file/vcs<CR> 
     "VCS file mapping 
-    command! UniteAckToggleCase :let g:unite_source_ack_ignore_case=!g:unite_source_ack_ignore_case|let g:unite_source_ack_ignore_case
     " show executed commmand
-    let g:unite_source_ack_enable_print_cmd = 1
     " define shortcut so that I can use :Unite ack:g:some_method to search some_method from gem directory
 
     function! s:escape_visual(...) "{{{
@@ -328,32 +338,9 @@ if neobundle#is_installed('unite')
     function! s:visual_unite_arg() "{{{
         return s:escape_visual(' :\')
     endfunction"}}}
-
-    "{{{ unite ack
-    nnoremap <silent> <Space>a  :<C-u>exe "Unite -buffer-name=ack ack::" . escape(expand('<cword>'),' :\')<CR>
-    vnoremap <silent> <Space>a  :<C-u>exe "Unite -buffer-name=ack ack::" . <SID>visual_unite_arg()<CR>
-    nnoremap <silent> <Space>A  :<C-u>UniteResume ack<CR>
-
-    command! UniteAckToggleCase :let g:unite_source_ack_ignore_case=!g:unite_source_ack_ignore_case|let g:unite_source_ack_ignore_case
-
-    " shortcut
-    let g:unite_source_ack_targetdir_shortcut = {
-                \ 'bundle': '$HOME/.vim/bundle/',
-                \ 'unite': "$HOME/.vim/bundle/unite.vim",
-                \ }
-
-    " set filter to use converter_ack_shortcut to let candidate cosmically
-    " converted with shortcut
-    call unite#custom_filters('ack', ['matcher_default', 'sorter_default', 'converter_ack_shortcut'])
-    " command which use shortcut
-    command! -nargs=1 SearchBundle :Unite ack:bundle:<args>
-    command! -nargs=1 SearchGem    :Unite ack:gem:<args>
-    command! -nargs=1 SearchUnite  :Unite ack:unite:<args>
-    command! -nargs=1 SearchNeco   :Unite ack:neco:<args>
 endif
+
 "}}}
-"}}}
-let g:neocomplcache_enable_at_startup=1
 
 if neobundle#is_installed('YouCompleteMe') "{{{
 
@@ -365,13 +352,12 @@ if neobundle#is_installed('YouCompleteMe') "{{{
     let g:ycm_key_list_select_completion=['<TAB>']
 endif
 "}}}
-"{{{airline
-if neobundle#is_installed('vim-airline')
+if neobundle#is_installed('vim-airline') "{{{
     set noshowmode
 
     let g:airline_theme='powerlineish'
     let g:airline_enable_branch=1
-    let g:airline_powerline_fonts=1
+    "let g:airline_powerline_fonts=1
     let g:airline_detect_whitespace = 1
     let g:airline#extensions#hunks#non_zero_only = 1
 
@@ -388,8 +374,96 @@ if neobundle#is_installed('vim-airline')
 endif
 
 "}}}
-"{{{neocomplcache
-if neobundle#is_installed('neocomplcache.vim')
+if neobundle#is_installed('neocomplete.vim') "{{{
+" Use neocomplete.
+	let g:neocomplete#enable_at_startup = 1
+	" Use smartcase.
+	let g:neocomplete#enable_smart_case = 1
+	" Set minimum syntax keyword length.
+	let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#auto_completion_start_length=3
+	let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+    let g:neocomplete#enable_refresh_always=1
+
+
+
+	" Define dictionary.
+	let g:neocomplete#sources#dictionary#dictionaries = {
+	    \ 'default' : '',
+	    \ 'vimshell' : $HOME.'/.vimshell_hist',
+	    \ 'scheme' : $HOME.'/.gosh_completions'
+	    \ }
+
+	" Define keyword.
+	if !exists('g:neocomplete#keyword_patterns')
+	    let g:neocomplete#keyword_patterns = {}
+	endif
+	let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+	" Plugin key-mappings.
+	inoremap <expr><C-g>     neocomplete#undo_completion()
+	inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+	" Recommended key-mappings.
+	" <CR>: close popup and save indent.
+	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+	function! s:my_cr_function()
+	  return neocomplete#close_popup() . "\<CR>"
+	  " For no inserting <CR> key.
+	  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+	endfunction
+	" <TAB>: completion.
+		inoremap <expr><Tab>  neocomplete#start_manual_complete()
+"	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+	" <C-h>, <BS>: close popup and delete backword char.
+	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+	inoremap <expr><C-y>  neocomplete#close_popup()
+	inoremap <expr><C-e>  neocomplete#cancel_popup()
+	" Close popup by <Space>.
+	"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+	" AutoComplPop like behavior.
+	"let g:neocomplete#enable_auto_select = 1
+
+	" Shell like behavior(not recommended).
+	"set completeopt+=longest
+	"let g:neocomplete#enable_auto_select = 1
+	"let g:neocomplete#disable_auto_complete = 1
+	"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+	" Enable omni completion.
+	" Enable heavy omni completion.
+	if !exists('g:neocomplete#sources#omni#input_patterns')
+	  let g:neocomplete#sources#omni#input_patterns = {}
+	endif
+	if !exists('g:neocomplete#force_omni_input_patterns')
+	  let g:neocomplete#force_omni_input_patterns = {}
+	endif
+	"let g:neocomplete#sources#omni#input_patterns.php =
+	"\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+	"let g:neocomplete#sources#omni#input_patterns.c =
+	"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+	"let g:neocomplete#sources#omni#input_patterns.cpp =
+	"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+	" For perlomni.vim setting.
+	" https://github.com/c9s/perlomni.vim
+	let g:neocomplete#sources#omni#input_patterns.perl =
+	\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+	" For smart TAB completion.
+	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+	        \ <SID>check_back_space() ? "\<TAB>" :
+	        \ neocomplete#start_manual_complete()
+	  function! s:check_back_space() "{{{
+	    let col = col('.') - 1
+	    return !col || getline('.')[col - 1]  =~ '\s'
+	  endfunction"}}}
+" <TAB>: completion.
+endif
+"}}}
+if neobundle#is_installed('neocomplcache.vim') "{{{
     "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
@@ -485,7 +559,6 @@ endif
 "quick saving {{{
 nmap <silent> <Leader>w :update<CR>
 "}}}
-"IndentGuidesDisable
 
 "{{{ arrow key to buffer map
 map <C-LEFT> :bp<CR>
@@ -497,8 +570,29 @@ map! <S-Insert> <MiddleMouse>
 map <C-S-Insert> <MiddleMouse>
 map! <C-S-Insert> <MiddleMouse>
 "}}}
+"{{{ use silver search
+if executable("ag")
+    set grepprg=ag\ --nogroup\ --nocolor
+    if neobundle#is_installed('ctrlp.vim') "{{{
+        let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
+    endif
+    "}}}
+endif "}}}
+"TODO: fix rainbow parent
+" if neobundle#is_installed('rainbow_parentheses.vim') "{{{
+"
+"     au VimEnter * RainbowParenthesesToggle
+"     au Syntax * RainbowParenthesesLoadRound
+"     au Syntax * RainbowParenthesesLoadSquare
+"     au Syntax * RainbowParenthesesLoadBraces
+" endif 
+"}}}
 
-set suffixesadd+=.gz
+if neobundle#is_installed('syntastic') "{{{
+    let syntastic_perl_checkers=['perlcritic', 'perl']
+    let g:syntastic_perl_lib_path=['./lib', '/home/scratch.eash/NV-rtltime/lib/']
+    let g:syntastic_enable_perl_checker=0
+endif "}}}
 
-au FileType verilog_systemverilog compiler quick_build
+
 " vim: set fdm=marker:
