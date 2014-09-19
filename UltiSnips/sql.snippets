@@ -1,0 +1,30 @@
+snippet create "unique create function"
+-- -----------------------------------------------------
+-- function create_$1
+-- -----------------------------------------------------
+
+DROP FUNCTION IF EXISTS \`create_$1\`;
+
+DELIMITER $$
+CREATE FUNCTION \`create_$1\`(m$1 VARCHAR (${2:255})) 
+    RETURNS INT(11)
+    DETERMINISTIC SQL SECURITY INVOKER
+	BEGIN
+		DECLARE match_id INT UNSIGNED ;
+		SELECT id INTO match_id 
+		FROM $1
+		WHERE NAME = m$1 
+		FOR UPDATE ;
+
+    IF (match_id IS NULL) THEN 
+        INSERT INTO \`$1\` (\`name\`) 
+        VALUES (m$1) ;
+        RETURN LAST_INSERT_ID() ;
+    ELSE 
+        RETURN match_id ;
+    END IF ;
+END$$
+
+DELIMITER ;
+
+endsnippet

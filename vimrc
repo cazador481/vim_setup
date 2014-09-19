@@ -27,7 +27,7 @@ call neobundle#rc()
 NeoBundleFetch 'http://github.com/Shougo/neobundle'
 "Add your bundles here
 "{{{General bundles here
-" NeoBundle 'syntastic' "uber awesome syntax and errors highlighter
+"  NeoBundle 'syntastic' "uber awesome syntax and errors highlighter
 
 " NeoBundle 'http://github.com/bling/vim-airline'
 NeoBundle 'godlygeek/tabular'
@@ -69,17 +69,20 @@ NeoBundle 'http://github.com/Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 
 NeoBundle 'vim-scripts/dbext.vim'
+" NeoBundle 'vim-pipe'
+
+NeoBundle 'tomtom/checksyntax_vim', {'depends' : ['tomtom/quickfixsigns_vim','pydave/AsyncCommand'] }
 
 
 "
 NeoBundle 'http://github.com/kien/rainbow_parentheses.vim'
 NeoBundle 'http://github.com/Shougo/vimproc', {
-            \ 'build' : {
-            \     'windows' : 'make -f make_mingw32.mak',
-            \     'cygwin' : 'make -f make_cygwin.mak',
-            \     'mac' : 'make -f make_mac.mak',
-            \     'unix' : 'make -f make_unix.mak',
-            \    }, }
+\ 'build' : {
+\     'windows' : 'make -f make_mingw32.mak',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'unix' : 'make -f make_unix.mak',
+\    }, }
 " if has("unix") && (v:version >703 || has('patch584'))
 "     NeoBundle 'Valloric/YouCompleteMe', {
 "                 \'type:' : 'nosync', 
@@ -87,7 +90,7 @@ NeoBundle 'http://github.com/Shougo/vimproc', {
 "                 \ 'vim_version' : '7.3.584'
 "                 \}
 " endif
-   ""   , { 'build' : { 'unix' : 'cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/cpp -DPYTHON_INCLUDE_DIR=/usr/intel/pkgs/python/2.7.2/include/python2.7/ -DPYTHON_LIBRARY=/usr/intel/pkgs/python/2.7.2/lib/libpython2.7.so;make', } }
+""   , { 'build' : { 'unix' : 'cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/cpp -DPYTHON_INCLUDE_DIR=/usr/intel/pkgs/python/2.7.2/include/python2.7/ -DPYTHON_LIBRARY=/usr/intel/pkgs/python/2.7.2/lib/libpython2.7.so;make', } }
 
 "}}}
 "
@@ -213,6 +216,8 @@ endif
 let g:UltiSnipsExpandTrigger="<c-f>"
 let g:UltiSnipsJumpForwardTrigger="<c-f>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsEditSplit="vertical"
+
 "let g:UltiSnipsExpandTrigger="<tab>"
 "     "let g:UltiSnipsJumpForwardTrigger="<tab>"
 "     "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -232,7 +237,16 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 "         return ""
 "     endfunction
 
-    
+"{{{ #ultisnips and unite 
+function! UltiSnipsCallUnite()
+    Unite -start-insert -winheight=100 -immediately -no-empty ultisnips
+    return ''
+endfunction
+
+  inoremap <silent> <F12> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
+  nnoremap <silent> <F12> a<C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
+"}}}
+ 
     "inoremap <tab>=g:UltiSnips_Complete()
     " au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 "    let g:UltiSnipsJumpForwardTrigger="<leader>j"
@@ -553,7 +567,7 @@ if neobundle#is_installed('neocomplcache.vim') "{{{
 
     " For perlomni.vim setting.
     " https://github.com/c9s/perlomni.vim
-    let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.perl = '\h\w*->\|\h\w*->\h\w*\|\h\w*::\|\h\w*::\h\w*'
 endif
 "}}}
 "quick saving {{{
@@ -595,4 +609,13 @@ if neobundle#is_installed('syntastic') "{{{
 endif "}}}
 
 
+let g:sql_type_default='mysql'
+
+if neobundle#is_installed('dbext.vim') "{{{
+    let g:dbext_default_profile_fullchip_ro= 'type=MYSQL:user=fullchipsims_ro:passwd=CB2ea79!:dbname=gpu_fullchip_sims:host=gpu-db-gpufullchipsims-read'
+    let g:dbext_default_profile_fullchip_dev= 'type=MYSQL:user=fullchipsims_dev:passwd=dev:dbname=GPUFullchipSims:host=gpu-db-gpufullchipsims-dev'
+endif "}}}
+
+" Disable auto comments
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "Makes copying and pasting using mosh work better
 " vim: set fdm=marker:

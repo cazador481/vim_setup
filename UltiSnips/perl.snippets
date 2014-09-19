@@ -20,3 +20,69 @@ sub $1
 	${2:${VISUAL}}
 }
 endsnippet
+
+snippet perl "perl include"
+#!/home/utils/perl-5.16/5.16.2-nothreads-64/bin/perl
+endsnippet
+
+snippet moo_role "role"
+package $1;
+use strict;
+use warnings;
+use Moo::Role;
+
+$2
+
+1;
+endsnippet
+
+
+snippet script "create self contained script"
+#!/home/utils/perl-5.20/5.20.0-004/bin/perl
+
+use strict;
+use warnings;
+use lib '/home/nv/lib/perl5/'; # loads default nv libs
+
+package $1;
+use Moo;
+use MooX::Options;
+use MooX::HandlesVia;
+use MooX::Log::Any;
+option debug => (is =>'rw',default=>0);
+option quiet =>(is =>'rw', default=>0);
+
+#Main routine
+sub run
+{
+	my $self=shift;
+	$2
+}
+1;
+
+
+package main;
+use Log::Log4perl qw(:easy);
+use Log::Any;
+use Log::Any::Adapter;
+Log::Any::Adapter->set('Log4perl');
+Log::Log4perl->easy_init({level=>$ERROR,layout=>"%C [%p]%d-%m%n"});
+
+
+$SIG{__DIE__} = sub {
+    if($^S) {
+        # We're in an eval {} and don't want log
+        # this message but catch it later
+        return;
+    }
+    $Log::Log4perl::caller_depth++;
+    my $logger = get_logger("");
+    $logger->fatal(@_);
+    die @_; # Now terminate really
+};
+
+my $app = $1->new_with_options();
+$app->run;
+
+endsnippet
+
