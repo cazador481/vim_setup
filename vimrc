@@ -22,21 +22,23 @@ if !filereadable(bundle_readme)
     let iCanHazBundle=0
 endif
 set rtp+=~/.vim/bundle/neobundle/
-call neobundle#rc()
+call neobundle#begin(expand('~/.vim/bundle/'))
 "}}}
 NeoBundleFetch 'http://github.com/Shougo/neobundle'
+let g:neobundle#types#git#default_protocol='git'
 "Add your bundles here
 "{{{General bundles here
 "  NeoBundle 'syntastic' "uber awesome syntax and errors highlighter
 
 " NeoBundle 'http://github.com/bling/vim-airline'
+NeoBundle 'jgdavey/tslime.vim'
 NeoBundle 'godlygeek/tabular'
-NeoBundle 'http://github.com/cazador481/vim-systemverilog'
+" NeoBundle 'http://github.com/cazador481/vim-systemverilog'
 NeoBundle 'http://github.com/tpope/vim-eunuch' "file modification commands, like Unlink, Move
-NeoBundle 'http://github.com/tpope/vim-fugitive'
+" NeoBundle 'http://github.com/tpope/vim-fugitive'
 NeoBundle 'http://github.com/tpope/vim-surround'
 NeoBundle 'http://github.com/tpope/vim-dispatch'
-NeoBundle 'embear/vim-foldsearch'
+" NeoBundle 'embear/vim-foldsearch'
 "should bundle menu
 "NeoBundle 'http://github.com/mbadran/headlights
 
@@ -59,7 +61,7 @@ NeoBundle 'http://github.com/perrywky/vim-matchit'
 NeoBundle 'http://github.com/kurkale6ka/vim-pairs'
 NeoBundleLazy 'http://github.com/derekwyatt/vim-protodef'
 autocmd FileType cpp NeoBundleSource vim-protodef
-NeoBundle 'http://github.com/vim-scripts/FSwitch'
+" NeoBundle 'http://github.com/vim-scripts/FSwitch'
 NeoBundle 'http://github.com/kana/vim-textobj-user'
 "NeoBundle 'http://github.com/bling/vim-bufferline'
 " NeoBundle 'http://github.com/kien/ctrlp.vim'
@@ -68,10 +70,11 @@ NeoBundle 'mattn/gist-vim', {'depends' : 'mattn/webapi-vim' }
 NeoBundle 'http://github.com/Shougo/unite.vim' 
 NeoBundle 'Shougo/neocomplete.vim'
 
-NeoBundle 'vim-scripts/dbext.vim'
+NeoBundleLazy 'vim-scripts/dbext.vim'
+autocmd FileType sql NeoBundleSource dbext.vim
 " NeoBundle 'vim-pipe'
 
-NeoBundle 'tomtom/checksyntax_vim', {'depends' : ['tomtom/quickfixsigns_vim','pydave/AsyncCommand'] }
+" NeoBundle 'tomtom/checksyntax_vim', {'depends' : ['tomtom/quickfixsigns_vim','pydave/AsyncCommand'] }
 
 
 "
@@ -99,10 +102,11 @@ NeoBundle 'http://github.com/Shougo/vimproc', {
 " NeoBundle 'vim-scripts/perl-support.vim'
 NeoBundle 'vim-perl/vim-perl'
 " autocmd FileType perl NeoBundleSource perl-support.vim
-NeoBundleLazy 'https://github.com/c9s/perlomni.vim'
-autocmd FileType perl NeoBundleSource perlomni.vim
+NeoBundle 'cazador481/perlomni.vim'
+autocmd FileType perl set omnifunc=perlcomplete#PerlComplete
+" autocmd FileType perl NeoBundleSource perlomni.vim
 "NeoBundle 'http://github.com/cazador481/vim-cute-perl.git'
-NeoBundle 'http://github.com/vim-scripts/perlprove.vim'
+"NeoBundle 'http://github.com/vim-scripts/perlprove.vim'
 "}}}
 
 "{{{color schemes
@@ -112,6 +116,8 @@ NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'godlygeek/csapprox'
 " NeoBundle 'w0ng/vim-hybrid'
 "}}}
+
+call neobundle#end()
 "
 if neobundle#is_installed('neobundle')
     call neobundle#end()
@@ -126,7 +132,7 @@ set visualbell
 set tags=tags;
 set nocompatible
 set history=1000
-set clipboard+=unnamed "uses x-11 clipboard
+set clipboard+=unnamedplus "uses x-11 clipboard
 set ruler
 set cmdheight=2
 set backspace=2 "make backspace work normal
@@ -140,6 +146,7 @@ set diffopt+=iwhite " ignores white space
 set diffopt+=icase " ignores case
 set laststatus=2
 set suffixesadd+=.gz
+set hidden "allows buffers to be hidden while having unsaved changes
 "{{{indent
 set tabstop=4
 set shiftwidth=4
@@ -270,7 +277,7 @@ let g:Perl_DirectRun='yes'
 let g:NERDCustomDelimiters = { 'verilog_systemverilog': { 'left': '//', }, }
 "}}}
 if neobundle#is_installed('rainbow_parenthesis.vim') "{{{
-    au VimEnter * RainbowParenthesesToggle
+    au VimEnter * RainbowParenthesesActivate
     au Syntax * RainbowParenthesesLoadRound
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
@@ -328,7 +335,7 @@ if neobundle#is_installed('unite.vim') "{{{
     call unite#filters#matcher_default#use(['matcher_fuzzy'])
     noremap <C-p> :execute 'Unite -start-insert file_rec/async:'.unite#util#path2project_directory(findfile("TOT",getcwd().";"))<cr> 
     noremap <leader>b :Unite -start-insert buffer <cr>
-    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_command = 'ag --ignore .build'
     let g_unite_source_file_rec_max_cache_files=0
     call unite#custom#source('file_rec,file_rec/async','max_candidates',0)
     "nnoremap <leader>fc :<C-u>Unite -start-insert -no-split -buffer-name=file_vcs file/vcs<CR> 
@@ -586,7 +593,8 @@ map! <C-S-Insert> <MiddleMouse>
 "}}}
 "{{{ use silver search
 if executable("ag")
-    set grepprg=ag\ --nogroup\ --nocolor
+    set grepprg=ag\ --nogroup\ --nocolor\ --hidden
+    let g:unite_source_rec_async_command= 'ag --nocolor --nogroup -g ""'
     if neobundle#is_installed('ctrlp.vim') "{{{
         let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
     endif
@@ -618,4 +626,9 @@ endif "}}}
 
 " Disable auto comments
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "Makes copying and pasting using mosh work better
+
+
+"clipboard with xclip 
+vmap <C-c> :<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u
+nmap <C-c> y: call system("xclip -i -selection clipboard", getreg("\""))<CR>
 " vim: set fdm=marker:
