@@ -8,10 +8,16 @@ has $1 => (
 endsnippet
 
 snippet method "sub method"
+=method $1
+
+${2:Description goes here}
+
+=cut
+
 sub $1 
 {
 	my $self=shift;
-	${2:${VISUAL}}
+	${3:${VISUAL}}
 }
 endsnippet
 snippet sub "subroutine"
@@ -38,7 +44,8 @@ endsnippet
 
 
 snippet script "create self contained script"
-#!/home/utils/perl-5.20/5.20.0-004/bin/perl
+
+#!/home/utils/perl-5.20/5.20.1-001/bin/perl
 
 use strict;
 use warnings;
@@ -48,27 +55,37 @@ package $1;
 use Moo;
 use MooX::Options;
 use MooX::HandlesVia;
-use MooX::Log::Any;
-option debug => (is =>'rw',default=>0);
+with qw( MooX::Log::Any);
+option debug => (is =>'rw',default=>0,trigger=>1);
 option quiet =>(is =>'rw', default=>0);
 
+
+sub _trigger_debug
+{
+        use Log::Log4perl qw(:easy);
+        Log::Log4perl->easy_init({level=>$DEBUG,layout=>"%C [%p]%d-%m%n"});
+
+}
 #Main routine
 sub run
 {
-	my $self=shift;
-	$2
+    my $self=shift;
+    $self->log->debug('hi');
 }
-1;
 
 
-package main;
-use Log::Log4perl qw(:easy);
-use Log::Any;
-use Log::Any::Adapter;
-Log::Any::Adapter->set('Log4perl');
-Log::Log4perl->easy_init({level=>$ERROR,layout=>"%C [%p]%d-%m%n"});
-
-
+sub BUILDARGS
+{
+    my ($class,@args)=@_;
+    if (caller)
+    {
+        use Log::Any::Adapter;
+        use Log::Log4perl qw(:easy);
+        Log::Any::Adapter->set('Log4perl');
+        Log::Log4perl->easy_init({level=>$ERROR,layout=>"%C [%p]%d-%m%n"});
+    }
+    return {@args};
+}
 $SIG{__DIE__} = sub {
     if($^S) {
         # We're in an eval {} and don't want log
@@ -81,8 +98,8 @@ $SIG{__DIE__} = sub {
     die @_; # Now terminate really
 };
 
-my $app = $1->new_with_options();
-$app->run;
+__PACKAGE__->new_with_options->run;
+1;
 
 endsnippet
 
