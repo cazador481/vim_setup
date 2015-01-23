@@ -69,6 +69,7 @@ NeoBundle 'http://github.com/xolox/vim-reload', {'depends' : 'xolox/vim-misc' }
 NeoBundle 'mattn/gist-vim', {'depends' : 'mattn/webapi-vim' }
 NeoBundle 'http://github.com/Shougo/unite.vim' 
 NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'tmux-plugins/vim-tmux'
 
 NeoBundleLazy 'vim-scripts/dbext.vim'
 autocmd FileType sql NeoBundleSource dbext.vim
