@@ -1,1 +1,1 @@
-bundle/vim-perl/contrib/try-tiny.vim
+../../../bundle/vim-perl/contrib/try-tiny.vim

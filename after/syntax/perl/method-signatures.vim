@@ -1,1 +1,1 @@
-bundle/vim-perl/contrib/method-signatures.vim
+../../../bundle/vim-perl/contrib/method-signatures.vim

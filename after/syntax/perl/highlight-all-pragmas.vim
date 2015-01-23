@@ -1,1 +1,1 @@
-bundle/vim-perl/contrib/highlight-all-pragmas.vim
+../../../bundle/vim-perl/contrib/highlight-all-pragmas.vim

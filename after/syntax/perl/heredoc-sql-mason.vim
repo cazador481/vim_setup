@@ -1,1 +1,1 @@
-bundle/vim-perl/contrib/heredoc-sql-mason.vim
+../../../bundle/vim-perl/contrib/heredoc-sql-mason.vim
