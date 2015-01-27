@@ -630,4 +630,10 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "
 "clipboard with xclip 
 vmap <C-c> :<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u
 nmap <C-c> y: call system("xclip -i -selection clipboard", getreg("\""))<CR>
+
+"{{{perl critic
+set errorformat+=%m\ at\ %f\ line\ %l\.
+set errorformat+=%m\ at\ %f\ line\ %l
+"}}
+
 " vim: set fdm=marker:
