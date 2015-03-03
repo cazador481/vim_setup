@@ -25,13 +25,13 @@ set rtp+=~/.vim/bundle/neobundle/
 call neobundle#begin(expand('~/.vim/bundle/'))
 "}}}
 NeoBundleFetch 'http://github.com/Shougo/neobundle'
+
 let g:neobundle#types#git#default_protocol='git'
 "Add your bundles here
 "{{{General bundles here
 "  NeoBundle 'syntastic' "uber awesome syntax and errors highlighter
 
 " NeoBundle 'http://github.com/bling/vim-airline'
-NeoBundle 'jgdavey/tslime.vim'
 NeoBundle 'godlygeek/tabular'
 " NeoBundle 'http://github.com/cazador481/vim-systemverilog'
 NeoBundle 'http://github.com/tpope/vim-eunuch' "file modification commands, like Unlink, Move
@@ -50,7 +50,9 @@ NeoBundle 'http://github.com/tpope/vim-repeat'
 NeoBundle 'tomtom/tcomment_vim'
 "{{{ TMUX
 "TODO check for TMUX env set to enable
+NeoBundle 'brauner/vimtux'
 NeoBundle 'christoomey/vim-tmux-navigator'
+NeoBundle 'kana/vim-fakeclip'
 " NeoBundle 'wellle/tmux-complete.vim'
 "}}}
 
@@ -74,7 +76,7 @@ NeoBundle 'tmux-plugins/vim-tmux'
 NeoBundleLazy 'vim-scripts/dbext.vim'
 autocmd FileType sql NeoBundleSource dbext.vim
 " NeoBundle 'vim-pipe'
-
+NeoBundle 'tomtom/quickfixsigns_vim'
 " NeoBundle 'tomtom/checksyntax_vim', {'depends' : ['tomtom/quickfixsigns_vim','pydave/AsyncCommand'] }
 
 
@@ -615,8 +617,20 @@ if neobundle#is_installed('syntastic') "{{{
     let g:syntastic_enable_perl_checker=0
 endif "}}}
 
+if neobundle#is_installed('vim-fakeclip') "{{{
+    if !has ('gui_running')
+        " Do not connect to X server
+        set clipboard+=exclude:.*
+        " but I want to use clipboard
+        let g:fakeclip_provide_clipbard_key_mapping = 1
+    endif
+
+
+
+endif "}}}
 
 let g:sql_type_default='mysql'
+
 
 if neobundle#is_installed('dbext.vim') "{{{
     let g:dbext_default_profile_fullchip_ro= 'type=MYSQL:user=fullchipsims_ro:passwd=CB2ea79!:dbname=gpu_fullchip_sims:host=gpu-db-gpufullchipsims-read'
@@ -627,13 +641,14 @@ endif "}}}
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "Makes copying and pasting using mosh work better
 
 
-"clipboard with xclip 
-vmap <C-c> :<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u
-nmap <C-c> y: call system("xclip -i -selection clipboard", getreg("\""))<CR>
+"{{{clipboard with xclip 
+" vmap <C-c> :<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u
+" nmap <C-c> y: call system("xclip -i -selection clipboard", getreg("\""))<CR>
+"}}} 
 
 "{{{perl critic
 set errorformat+=%m\ at\ %f\ line\ %l\.
 set errorformat+=%m\ at\ %f\ line\ %l
-"}}
+"}}}
 
 " vim: set fdm=marker:
