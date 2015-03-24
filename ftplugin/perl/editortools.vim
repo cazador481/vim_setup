@@ -1,5 +1,5 @@
 " App::EditorTools::Command::InstallVim generated script
-" Version: 0.19
+" Version: 1.00
 " Only do this when not done yet for this buffer
 if exists("b:did_editortools_ftplugin")
     finish

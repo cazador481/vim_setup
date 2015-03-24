@@ -40,7 +40,7 @@ NeoBundle 'http://github.com/tpope/vim-surround'
 NeoBundle 'http://github.com/tpope/vim-dispatch'
 " NeoBundle 'embear/vim-foldsearch'
 "should bundle menu
-"NeoBundle 'http://github.com/mbadran/headlights
+"NeoBundle 'http://github.com/mbadran/headlights'
 
 "{{{new Filetypes
 NeoBundle 'http://github.com/cazador481/vim-nfo'
@@ -71,7 +71,6 @@ NeoBundle 'http://github.com/xolox/vim-reload', {'depends' : 'xolox/vim-misc' }
 NeoBundle 'mattn/gist-vim', {'depends' : 'mattn/webapi-vim' }
 NeoBundle 'http://github.com/Shougo/unite.vim' 
 NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'tmux-plugins/vim-tmux'
 
 NeoBundleLazy 'vim-scripts/dbext.vim'
 autocmd FileType sql NeoBundleSource dbext.vim
@@ -96,6 +95,9 @@ NeoBundle 'http://github.com/Shougo/vimproc', {
 "                 \}
 " endif
 ""   , { 'build' : { 'unix' : 'cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/cpp -DPYTHON_INCLUDE_DIR=/usr/intel/pkgs/python/2.7.2/include/python2.7/ -DPYTHON_LIBRARY=/usr/intel/pkgs/python/2.7.2/lib/libpython2.7.so;make', } }
+
+"Better diff handling
+NeoBundle 'chrisbra/vim-diff-enhanced'
 
 "}}}
 "
@@ -135,7 +137,13 @@ set visualbell
 set tags=tags;
 set nocompatible
 set history=1000
-set clipboard+=unnamedplus "uses x-11 clipboard
+
+
+
+
+
+
+set clipboard^=unnamedplus "uses x-11 clipboard, stores in middle mouse
 set ruler
 set cmdheight=2
 set backspace=2 "make backspace work normal
@@ -620,7 +628,7 @@ endif "}}}
 if neobundle#is_installed('vim-fakeclip') "{{{
     if !has ('gui_running')
         " Do not connect to X server
-        set clipboard+=exclude:.*
+        "set clipboard+=exclude:.*
         " but I want to use clipboard
         let g:fakeclip_provide_clipbard_key_mapping = 1
     endif
@@ -642,8 +650,8 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "
 
 
 "{{{clipboard with xclip 
-" vmap <C-c> :<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u
-" nmap <C-c> y: call system("xclip -i -selection clipboard", getreg("\""))<CR>
+ vmap <C-c> :<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u
+ nmap <C-c> y: call system("xclip -i -selection clipboard", getreg("\""))<CR>
 "}}} 
 
 "{{{perl critic
